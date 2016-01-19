@@ -20,11 +20,11 @@ public class BoardPrinterTest {
 
     @Test
     public void test1x1BoardPrints() {
-        String expected_board = "|_ _|";
-
+        String expected_board = "      0\n  0 |_ _|";
         BoardPrinter printer = new BoardPrinter();
 
         printer.print();
+
         assertEquals(expected_board, outContent.toString());
     }
 
@@ -33,3 +33,5 @@ public class BoardPrinterTest {
         System.setOut(null);
     }
 }
+
+// "     0\n  0 |_ _|"
