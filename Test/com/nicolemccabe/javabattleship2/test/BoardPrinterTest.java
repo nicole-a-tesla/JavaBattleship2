@@ -5,8 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -33,5 +32,3 @@ public class BoardPrinterTest {
         System.setOut(null);
     }
 }
-
-// "     0\n  0 |_ _|"
