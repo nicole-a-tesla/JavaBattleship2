@@ -1,5 +1,6 @@
 package com.nicolemccabe.javabattleship2.test;
 
+import com.nicolemccabe.javabattleship2.Board;
 import com.nicolemccabe.javabattleship2.BoardPrinter;
 import org.junit.After;
 import org.junit.Before;
@@ -20,15 +21,18 @@ public class BoardPrinterTest {
     @Test
     public void test1x1BoardPrints() {
         String expected_board = "      0\n  0 |_ _|";
-        BoardPrinter printer = new BoardPrinter();
 
-        printer.print();
+        BoardPrinter printer = new BoardPrinter();
+        Board board = new Board(1);
+        printer.print(board);
 
         assertEquals(expected_board, outContent.toString());
     }
+
 
     @After
     public void cleanupStream() {
         System.setOut(null);
     }
+
 }

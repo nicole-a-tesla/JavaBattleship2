@@ -7,7 +7,8 @@ public class GameLauncher {
 
     public static void main(String[] args) throws IOException {
         BoardPrinter printer = new BoardPrinter();
-        printer.print();
+        Board board = new Board(1);
+        printer.print(board);
 
         Game game = new Game();
 //        game.getTarget();
