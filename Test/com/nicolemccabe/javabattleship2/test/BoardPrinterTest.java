@@ -12,6 +12,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class BoardPrinterTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private BoardPrinter printer = new BoardPrinter();
 
     @Before
     public void setup() {
@@ -20,15 +21,22 @@ public class BoardPrinterTest {
 
     @Test
     public void test1x1BoardPrints() {
-        String expected_board = "      0\n  0 |_ _|";
+        String expected_board = "    0 \n0 |_ _\n";
 
-        BoardPrinter printer = new BoardPrinter();
         Board board = new Board(1);
         printer.print(board);
 
         assertEquals(expected_board, outContent.toString());
     }
 
+    @Test
+    public void test2x2BoardPrint() {
+        String expected_board = "    0   1 \n0 |_ _|_ _\n1 |_ _|_ _\n";
+        Board board = new Board(2);
+        printer.print(board);
+
+        assertEquals(expected_board, outContent.toString());
+    }
 
     @After
     public void cleanupStream() {
@@ -36,3 +44,10 @@ public class BoardPrinterTest {
     }
 
 }
+
+//        "    0   1  "
+//        "0 |_ _|_ _|"
+//        "1 |_ _|_ _|"
+
+//        "      0"
+//        "  0 |_ _\n"

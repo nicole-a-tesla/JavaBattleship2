@@ -10,7 +10,7 @@ public class GameLauncher {
         Board board = new Board(1);
         printer.print(board);
 
-        Game game = new Game();
+//        Game game = new Game();
 //        game.getTarget();
 
     }
