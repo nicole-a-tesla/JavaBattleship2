@@ -6,7 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -44,10 +45,3 @@ public class BoardPrinterTest {
     }
 
 }
-
-//        "    0   1  "
-//        "0 |_ _|_ _|"
-//        "1 |_ _|_ _|"
-
-//        "      0"
-//        "  0 |_ _\n"

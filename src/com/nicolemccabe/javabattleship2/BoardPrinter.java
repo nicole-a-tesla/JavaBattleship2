@@ -51,8 +51,4 @@ public class BoardPrinter {
         return front_padding + element_number + back_padding;
     }
 
-    // FIRST print x axis
-    // for each row
-        // print y axis + space_string * board.size
-
 }
