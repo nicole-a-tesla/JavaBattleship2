@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class SpaceTest {
     Space s;
@@ -23,20 +21,21 @@ public class SpaceTest {
     }
 
     @Test
-    public void testUpdatesStateIfStruck(){
+    public void testUpdatesStateToMiss(){
         s.logStrike();
         assertEquals(State.MISS, s.getState());
     }
-//
-//    @Test
-//    public void testSpaceInitsWithoutShip() {
-//        assertFalse(s.hasShip());
-//    }
-//
+
     @Test
-    public void testSpaceCanSetShip() {
+    public void testUpdatesStateToShip() {
         s.setShip();
         assertEquals(State.SHIP, s.getState());
-//        assertTrue(s.hasShip());
+    }
+
+    @Test
+    public void testUpdatesStateToHit() {
+        s.setShip();
+        s.logStrike();
+        assertEquals(State.HIT, s.getState());
     }
 }

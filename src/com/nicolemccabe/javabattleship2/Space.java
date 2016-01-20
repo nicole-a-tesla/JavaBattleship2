@@ -12,7 +12,11 @@ public class Space {
     }
 
     public void logStrike() {
-        state = State.MISS;
+        if (state == State.WATER) {
+            state = State.MISS;
+        } else {
+            state = State.HIT;
+        }
     }
 
     public void setShip() {
