@@ -35,25 +35,15 @@ public class GameTest {
     }
 
     @Test
-    public void testStrikesBoardAtCoords() {
-        game.strikeBoardAt(0,0);
-        assertEquals(State.MISS, board.getStateAt(0,0));
+    public void testStrikesBoardAtCoordsAndReturnsState() {
+        State resultingState = game.strikeBoardAt(0,0);
+        assertEquals(State.MISS, resultingState);
     }
 
     @Test
-    public void testGameSetsShip() {
-        game.setShipAt(0,0);
-        assertEquals(State.SHIP, board.getStateAt(0,0));
+    public void testGameSetsShipAndReturnsState() {
+        State resultingState = game.setShipAt(0,0);
+        assertEquals(State.SHIP, resultingState);
     }
-//
-//    @Test
-//    public void testGetUserTargetX() throws IOException {
-//        String targetX = game.getTargetX();
-//        assertEquals("0", targetX);
-//
-//    }
-
-
-
 
 }

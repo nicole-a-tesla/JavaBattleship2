@@ -27,12 +27,12 @@ public class Game {
         return Integer.parseInt(getInput());
     }
 
-    public void strikeBoardAt(int x, int y) {
-        board.logStrikeAt(x, y);
+    public State strikeBoardAt(int x, int y) {
+        return board.logStrikeAt(x, y);
     }
 
-    public void setShipAt(int x, int y) {
-        board.setShipAt(x, y);
+    public State setShipAt(int x, int y) {
+        return board.setShipAt(x, y);
     }
 
 

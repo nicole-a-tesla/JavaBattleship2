@@ -20,10 +20,18 @@ public class Board {
         return space.getState();
     }
 
-    public void logStrikeAt(int x, int y) {
+    public State logStrikeAt(int x, int y) {
         Space space = getSpaceAt(x, y);
         space.logStrike();
+        return getStateAt(x, y);
     }
+
+    public State setShipAt(int x, int y) {
+        Space space = getSpaceAt(x, y);
+        space.setShip();
+        return getStateAt(x, y);
+    }
+
 
     private Space getSpaceAt(int x, int y) {
         ArrayList<Space> row = (ArrayList<Space>) grid.get(y);
@@ -46,11 +54,6 @@ public class Board {
             row.add(new Space());
 
         return row;
-    }
-
-    public void setShipAt(int x, int y) {
-        Space space = getSpaceAt(x, y);
-        space.setShip();
     }
 
 }
