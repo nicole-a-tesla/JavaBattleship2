@@ -11,7 +11,7 @@ import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
 
-    public static class BoardPrinterTest {
+    public class BoardPrinterTest {
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         private BoardPrinter printer = new BoardPrinter();
 
@@ -44,4 +44,3 @@ import static junit.framework.Assert.assertEquals;
         }
 
     }
-}
