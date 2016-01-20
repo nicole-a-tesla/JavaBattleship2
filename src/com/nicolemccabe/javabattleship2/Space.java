@@ -11,4 +11,8 @@ public class Space {
         return state;
     }
 
+    public void logStrike() {
+        state = State.MISS;
+    }
+
 }

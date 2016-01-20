@@ -12,4 +12,11 @@ public class SpaceTest {
         Space s = new Space();
         assertEquals(State.WATER, s.getState());
     }
+
+    @Test
+    public void testUpdatesStateIfStruck(){
+        Space s = new Space();
+        s.logStrike();
+        assertEquals(State.MISS, s.getState());
+    }
 }
