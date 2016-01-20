@@ -44,9 +44,16 @@ public class BoardTest {
     }
 
     @Test
-    public void canTellSpaceItWasHit() {
+    public void canTellSpaceItWasStruckAndMissed() {
         b.logStrikeAt(0,0);
         State state = b.getStateAt(0,0);
         assertEquals(State.MISS, state);
+    }
+
+    @Test
+    public void canSetShipAtCoords() {
+        b.setShipAt(0,0);
+        State state = b.getStateAt(0,0);
+        assertEquals(State.SHIP, state);
     }
 }

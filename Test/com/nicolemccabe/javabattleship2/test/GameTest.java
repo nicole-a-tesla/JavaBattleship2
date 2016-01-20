@@ -41,4 +41,10 @@ public class GameTest {
         assertEquals(State.MISS, board.getStateAt(0,0));
     }
 
+    @Test
+    public void testGameSetsShip() {
+        game.setShipAt(0,0);
+        assertEquals(State.SHIP, board.getStateAt(0,0));
+    }
+
 }

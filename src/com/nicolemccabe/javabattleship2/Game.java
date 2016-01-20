@@ -20,5 +20,8 @@ public class Game {
         board.logStrikeAt(x, y);
     }
 
+    public void setShipAt(int x, int y) {
+        board.setShipAt(x, y);
+    }
 
 }

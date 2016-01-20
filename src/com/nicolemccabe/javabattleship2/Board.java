@@ -48,4 +48,9 @@ public class Board {
         return row;
     }
 
+    public void setShipAt(int x, int y) {
+        Space space = getSpaceAt(x, y);
+        space.setShip();
+    }
+
 }
