@@ -21,4 +21,8 @@ public class Space {
         state = State.MISS;
     }
 
+    public void setShip() {
+        hasShip = true;
+    }
+
 }
