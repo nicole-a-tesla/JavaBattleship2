@@ -15,6 +15,21 @@ public class Board {
         return grid;
     }
 
+    public State getStateAt(int x, int y) {
+        Space space = getSpaceAt(x, y);
+        return space.getState();
+    }
+
+    public void logStrikeAt(int x, int y) {
+        Space space = getSpaceAt(x, y);
+        space.logStrike();
+    }
+
+    private Space getSpaceAt(int x, int y) {
+        ArrayList<Space> row = (ArrayList<Space>) grid.get(y);
+        return row.get(x);
+    }
+
     private ArrayList buildGrid() {
         ArrayList localGrid = new ArrayList();
 
