@@ -26,4 +26,13 @@ public class BoardTest {
         assertEquals(10 , col.size());
     }
 
+    @Test
+    public void gridIsFullOfSpaces() {
+        ArrayList<ArrayList> grid = b.getGrid();
+        ArrayList row = grid.get(0);
+
+        Class contentsClass = row.get(0).getClass();
+
+        assertEquals(Space.class, contentsClass);
+    }
 }
