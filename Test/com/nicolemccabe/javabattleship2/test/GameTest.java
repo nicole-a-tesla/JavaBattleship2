@@ -31,7 +31,6 @@ public class GameTest {
     @Test
     public void getsUserInput() throws IOException {
         String input = game.getInput();
-
         assertEquals("0", input);
     }
 
@@ -46,5 +45,15 @@ public class GameTest {
         game.setShipAt(0,0);
         assertEquals(State.SHIP, board.getStateAt(0,0));
     }
+//
+//    @Test
+//    public void testGetUserTargetX() throws IOException {
+//        String targetX = game.getTargetX();
+//        assertEquals("0", targetX);
+//
+//    }
+
+
+
 
 }

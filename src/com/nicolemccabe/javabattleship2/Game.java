@@ -16,6 +16,17 @@ public class Game {
         return input;
     }
 
+    public void playersTurn() throws IOException {
+        int targetX = getTargetCoord("x");
+        int targetY = getTargetCoord("y");
+        strikeBoardAt(targetX, targetY);
+    }
+
+    public int getTargetCoord(String dimension) throws IOException {
+        System.out.print("Enter Target's " + dimension + ":");
+        return Integer.parseInt(getInput());
+    }
+
     public void strikeBoardAt(int x, int y) {
         board.logStrikeAt(x, y);
     }
@@ -23,5 +34,6 @@ public class Game {
     public void setShipAt(int x, int y) {
         board.setShipAt(x, y);
     }
+
 
 }
