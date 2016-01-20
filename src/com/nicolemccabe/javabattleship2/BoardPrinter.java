@@ -1,28 +1,23 @@
 package com.nicolemccabe.javabattleship2;
 
 public class BoardPrinter {
-    private final String space = "|_ _";
+    private final String space = "|_~_";
+    private final String doubleWhitespace = "  ";
+    private final String singleWhitespace = " ";
 
     public void print(Board board) {
-        int axis_size;
+        int axisSize = board.size;
 
-        if (board.size == 1) {
-            axis_size = board.size;
-        } else {
-            axis_size = board.size / 2;
-        }
-
-        System.out.print(x_axis(axis_size));
+        printXAxis(axisSize);
 
         StringBuffer row = new StringBuffer();
 
-        for (int i=0; i<axis_size; i++) {
+        for (int i=0; i<axisSize; i++)
             row.append(space);
-        }
 
-        for (int i=0; i<axis_size; i++) {
+        for (int i=0; i<axisSize; i++) {
             String finalRow = y_axis_num(i) + row + "\n";
-            System.out.print(String.valueOf(finalRow));
+            System.out.print(finalRow);
         }
 
         System.out.print("");
@@ -30,25 +25,21 @@ public class BoardPrinter {
     }
 
     private String y_axis_num(int axis_number) {
-        return axis_number + " ";
+        return axis_number + singleWhitespace;
     }
 
-    private String x_axis(int size) {
+    private void printXAxis(int size) {
         StringBuffer axis = new StringBuffer();
-        String padding = "  ";
-        axis.append(padding);
+        axis.append(doubleWhitespace);
 
-        for (int i=0; i<size; i++) {
+        for (int i=0; i<size; i++)
             axis.append(build_x_axis_element(i));
-        }
-        return String.valueOf(axis.append("\n"));
+
+        System.out.print(String.valueOf(axis.append("\n")));
     }
 
     private String build_x_axis_element(int element_number) {
-        String front_padding = "  ";
-        String back_padding = " ";
-
-        return front_padding + element_number + back_padding;
+        return doubleWhitespace + element_number + singleWhitespace;
     }
 
 }
