@@ -10,6 +10,7 @@ public class GameLauncher {
         printer.print(board);
 
         Game game = new Game(board);
+        game.setShipAt(0,0);
         game.playersTurn();
 
     }

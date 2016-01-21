@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayInputStream inContent = new ByteArrayInputStream("0".getBytes());
+    private final ByteArrayInputStream inContent = new ByteArrayInputStream("0, 0".getBytes());
     private Game game;
     private Board board;
 
@@ -31,7 +31,7 @@ public class GameTest {
     @Test
     public void getsUserInput() throws IOException {
         String input = game.getInput();
-        assertEquals("0", input);
+        assertEquals("0, 0", input);
     }
 
     @Test
@@ -46,4 +46,16 @@ public class GameTest {
         assertEquals(State.SHIP, resultingState);
     }
 
+    @Test
+    public void testInputMapsToStruckShip() throws IOException {
+        game.playersTurn();
+        assertEquals(board.getStateAt(0,0), State.MISS);
+    }
+
+    @Test
+    public void testFeedbackOnTurnResults() {
+        System.setOut(new PrintStream(outContent));
+        game.strikeBoardAt(0,0);
+        assertEquals("MISS", outContent.toString());
+    }
 }
