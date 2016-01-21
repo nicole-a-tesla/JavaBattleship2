@@ -4,12 +4,15 @@ public class BoardPrinter {
     private final String space = " \uD83C\uDF0A ";
     private final String padding = " ";
 
-    public void print(Board board) {
-//        final String ANSI_CLS = "\u001b[2J";
-//        final String ANSI_HOME = "\u001b[H";
-//        System.out.print(ANSI_CLS + ANSI_HOME);
-//        System.out.flush();
+    public void clearScreen() {
+        final String ANSI_CLS = "\u001b[2J";
+        final String ANSI_HOME = "\u001b[H";
+        System.out.print(ANSI_CLS + ANSI_HOME);
+        System.out.flush();
+    }
 
+    public void print(Board board) {
+        clearScreen();
         int axisSize = board.size;
 
         printXAxis(axisSize);
