@@ -1,7 +1,6 @@
 package com.nicolemccabe.javabattleship2;
 
 public class BoardPrinter {
-    private final String space = " \uD83C\uDF0A ";
     private final String padding = " ";
 
     public void clearScreen() {
@@ -13,22 +12,38 @@ public class BoardPrinter {
 
     public void print(Board board) {
         clearScreen();
+
         int axisSize = board.size;
 
         printXAxis(axisSize);
+
+        StringBuffer row = collectSpacesIntoRow(axisSize);
+
+        StringBuffer formattedRows = formatRows(row, axisSize);
+
+        System.out.print(formattedRows);
+        System.out.print("");
+
+    }
+
+    private StringBuffer collectSpacesIntoRow(int axisSize) {
+        final String space = " \uD83C\uDF0A ";
 
         StringBuffer row = new StringBuffer();
 
         for (int i=0; i<axisSize; i++)
             row.append(space);
 
-        for (int i=0; i<axisSize; i++) {
-            String finalRow = y_axis_num(i) + row + "\n";
-            System.out.print(finalRow);
-        }
+        return row;
+    }
 
-        System.out.print("");
+    private StringBuffer formatRows(StringBuffer row, int axisSize) {
+        StringBuffer formattedRows = new StringBuffer();
 
+        for (int i=0; i<axisSize; i++)
+            formattedRows.append(y_axis_num(i) + row + "\n");
+
+        return formattedRows;
     }
 
     private String y_axis_num(int axis_number) {
