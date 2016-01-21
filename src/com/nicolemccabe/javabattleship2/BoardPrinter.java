@@ -15,15 +15,12 @@ public class BoardPrinter {
 
         int axisSize = board.size;
 
-        printXAxis(axisSize);
-
+        StringBuffer xAxis = getXAxis(axisSize);
         StringBuffer row = collectSpacesIntoRow(axisSize);
-
         StringBuffer formattedRows = formatRows(row, axisSize);
 
+        System.out.print(xAxis);
         System.out.print(formattedRows);
-        System.out.print("");
-
     }
 
     private StringBuffer collectSpacesIntoRow(int axisSize) {
@@ -50,14 +47,13 @@ public class BoardPrinter {
         return axis_number + padding;
     }
 
-    private void printXAxis(int size) {
-        StringBuffer axis = new StringBuffer();
-        axis.append(padding);
+    private StringBuffer getXAxis(int size) {
+        StringBuffer axis = new StringBuffer().append(padding);
 
         for (int i=0; i<size; i++)
             axis.append(build_x_axis_element(i));
 
-        System.out.print(String.valueOf(axis.append("\n")));
+        return axis.append("\n");
     }
 
     private String build_x_axis_element(int element_number) {
