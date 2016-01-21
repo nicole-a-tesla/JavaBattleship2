@@ -37,7 +37,7 @@ public class Game {
     }
 
     private void getTargetCoordsUserInteraction() {
-        System.out.print("Time to shoot stuff!");
+        System.out.println("Time to shoot stuff!");
         System.out.print("Enter your target's coordinates as 'x, y' :");
     }
 

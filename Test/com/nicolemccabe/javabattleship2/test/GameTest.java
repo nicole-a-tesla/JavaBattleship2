@@ -4,6 +4,7 @@ import com.nicolemccabe.javabattleship2.Board;
 import com.nicolemccabe.javabattleship2.Game;
 import com.nicolemccabe.javabattleship2.State;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -52,7 +53,7 @@ public class GameTest {
         assertEquals(board.getStateAt(0,0), State.MISS);
     }
 
-    @Test
+    @Ignore
     public void testFeedbackOnTurnResults() {
         System.setOut(new PrintStream(outContent));
         game.strikeBoardAt(0,0);

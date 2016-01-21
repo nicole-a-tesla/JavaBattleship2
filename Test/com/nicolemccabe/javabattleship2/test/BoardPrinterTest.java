@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import static junit.framework.Assert.assertEquals;
 
     public class BoardPrinterTest {
+        private String space = " \uD83C\uDF0A ";
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         private BoardPrinter printer = new BoardPrinter();
 
@@ -22,7 +23,7 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void test2x2BoardPrint() {
-            String expected_board = "    0   1 \n0 |_~_|_~_\n1 |_~_|_~_\n";
+            String expected_board = "   0  1\n0 " + space + space + "\n1 " + space + space + "\n";
             Board board = new Board(2);
             printer.print(board);
 
@@ -31,7 +32,7 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void test3x3BoardPrint() {
-            String expected_board = "    0   1   2 \n0 |_~_|_~_|_~_\n1 |_~_|_~_|_~_\n2 |_~_|_~_|_~_\n";
+            String expected_board = "   0  1  2\n0 " + space + space + space + "\n1 " + space + space + space + "\n2 " + space + space + space + "\n";
             Board board = new Board(3);
             printer.print(board);
 
