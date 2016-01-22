@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class UiTest {
     @Test
@@ -14,7 +15,7 @@ public class UiTest {
         Printer mockPrinter = mock(ConsolePrinter.class);
         Receiver receiver = new ConsoleReceiver();
         Ui ui = new Ui(mockPrinter, receiver);
-        String test = "test";
+        String test = "0,0";
         ui.print(test);
         verify(mockPrinter).print(test);
     }
@@ -30,12 +31,17 @@ public class UiTest {
 
     @Test
     public void testUserInteractionOnXYRequest() throws IOException {
-        Ui mockUi = mock(Ui.class);
+        Printer printer = new ConsolePrinter();
+        Receiver mockReceiver = mock(ConsoleReceiver.class);
+
+        Ui ui = new Ui(printer, mockReceiver);
+        when(mockReceiver.getUserInput()).thenReturn("0,0");
+
         Board board = new Board(10);
-        Game game = new Game(board, mockUi);
+        Game game = new Game(board, ui);
 
         game.playersTurn();
-        verify(mockUi).requestXY();
+        verify(mockReceiver).getUserInput();
     }
 
 }

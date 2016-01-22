@@ -15,7 +15,7 @@ public class ConsolePrinterTest {
         System.setOut(new PrintStream(outContent));
 
         ConsolePrinter printer = new ConsolePrinter();
-        String str = "PRINTED!";
+        String str = "0,0";
         printer.print(str);
         assertEquals(str, outContent.toString());
 

@@ -15,8 +15,9 @@ public class Ui {
         printer.print("Enter your target's coordinates as 'x, y' :");
     }
 
-    public void getUserInput() throws IOException {
-        receiver.getUserInput();
+    public String getUserInput() throws IOException {
+        String received = receiver.getUserInput();
+        return received;
     }
 
     public void print(String string) {

@@ -26,15 +26,10 @@ public class Game {
     }
 
     public ArrayList getTargetCoords() throws IOException {
-        String xAndYString = getInput();
-        ArrayList xAndYList = new ArrayList<>(Arrays.asList(xAndYString.split(",")));
+        String xAndYString = ui.getUserInput();
+        ArrayList<String> xAndYList = new ArrayList<>(Arrays.asList(xAndYString.split(",")));
 
         return parseEachToInt(xAndYList);
-    }
-
-    public String getInput() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        return reader.readLine();
     }
 
     private ArrayList parseEachToInt(ArrayList<String> list) {
