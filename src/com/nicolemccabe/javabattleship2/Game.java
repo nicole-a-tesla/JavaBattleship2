@@ -9,17 +9,15 @@ import java.util.List;
 
 public class Game {
     public Board board;
+    public Ui ui;
 
-    public Game(Board board) {
+    public Game(Board board, Ui ui) {
         this.board = board;
-    }
-    public String getInput() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String input = reader.readLine();
-        return input;
+        this.ui = ui;
     }
 
     public void playersTurn() throws IOException {
+        ui.requestXY();
         List targetCoords= getTargetCoords();
         int x = (int) targetCoords.get(0);
         int y = (int) targetCoords.get(1);
@@ -28,17 +26,15 @@ public class Game {
     }
 
     public ArrayList getTargetCoords() throws IOException {
-        getTargetCoordsUserInteraction();
-
         String xAndYString = getInput();
         ArrayList xAndYList = new ArrayList<>(Arrays.asList(xAndYString.split(",")));
 
         return parseEachToInt(xAndYList);
     }
 
-    private void getTargetCoordsUserInteraction() {
-        System.out.println("Time to shoot stuff!");
-        System.out.print("Enter your target's coordinates as 'x, y' :");
+    public String getInput() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine();
     }
 
     private ArrayList parseEachToInt(ArrayList<String> list) {

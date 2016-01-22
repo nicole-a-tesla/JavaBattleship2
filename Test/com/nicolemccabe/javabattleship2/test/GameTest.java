@@ -1,8 +1,6 @@
 package com.nicolemccabe.javabattleship2.test;
 
-import com.nicolemccabe.javabattleship2.Board;
-import com.nicolemccabe.javabattleship2.Game;
-import com.nicolemccabe.javabattleship2.State;
+import com.nicolemccabe.javabattleship2.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,13 +17,15 @@ public class GameTest {
     private final ByteArrayInputStream inContent = new ByteArrayInputStream("0, 0".getBytes());
     private Game game;
     private Board board;
+    private Ui ui;
 
     @Before
     public void setup() {
         System.setOut(new PrintStream(outContent));
         System.setIn(inContent);
         board = new Board(10);
-        game = new Game(board);
+        ui = new Ui(new ConsolePrinter(), new ConsoleReceiver());
+        game = new Game(board, ui);
 
     }
 
