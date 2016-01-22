@@ -1,7 +1,6 @@
 package com.nicolemccabe.javabattleship2.test;
 
 import com.nicolemccabe.javabattleship2.*;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
