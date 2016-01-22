@@ -1,5 +1,7 @@
 package com.nicolemccabe.javabattleship2;
 
+import java.io.IOException;
+
 public class Ui {
     private Printer printer;
     private Receiver receiver;
@@ -13,7 +15,7 @@ public class Ui {
         printer.print("Enter your target's coordinates as 'x, y' :");
     }
 
-    public void getUserInput() {
+    public void getUserInput() throws IOException {
         receiver.getUserInput();
     }
 

@@ -20,7 +20,7 @@ public class UiTest {
     }
 
     @Test
-    public void receivesViaReceiver(){
+    public void receivesViaReceiver() throws IOException {
         Printer printer = new ConsolePrinter();
         Receiver mockReceiver = mock(ConsoleReceiver.class);
         Ui ui = new Ui(printer, mockReceiver);
