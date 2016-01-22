@@ -1,12 +1,13 @@
 package com.nicolemccabe.javabattleship2;
 
 public class BoardPrinter {
+    private Printer printer = new ConsolePrinter();
     private final String padding = " ";
 
     public void clearScreen() {
         final String ANSI_CLS = "\u001b[2J";
         final String ANSI_HOME = "\u001b[H";
-        System.out.print(ANSI_CLS + ANSI_HOME);
+        printer.print(ANSI_CLS + ANSI_HOME);
         System.out.flush();
     }
 
@@ -19,8 +20,8 @@ public class BoardPrinter {
         StringBuffer row = collectSpacesIntoRow(axisSize);
         StringBuffer formattedRows = formatRows(row, axisSize);
 
-        System.out.print(xAxis);
-        System.out.print(formattedRows);
+       printer.print(String.valueOf(xAxis));
+       printer.print(String.valueOf(formattedRows));
     }
 
     private StringBuffer collectSpacesIntoRow(int axisSize) {
