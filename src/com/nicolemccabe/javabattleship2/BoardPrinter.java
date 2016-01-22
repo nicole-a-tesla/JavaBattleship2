@@ -5,7 +5,7 @@ public class BoardPrinter {
     private final String padding = " ";
 
     public void print(Board board) {
-        printer.clearScreen();
+//        printer.clearScreen();
 
         int axisSize = board.size;
 
