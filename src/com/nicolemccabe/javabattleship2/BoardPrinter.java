@@ -4,15 +4,8 @@ public class BoardPrinter {
     private Printer printer = new ConsolePrinter();
     private final String padding = " ";
 
-    public void clearScreen() {
-        final String ANSI_CLS = "\u001b[2J";
-        final String ANSI_HOME = "\u001b[H";
-        printer.print(ANSI_CLS + ANSI_HOME);
-        System.out.flush();
-    }
-
     public void print(Board board) {
-        clearScreen();
+        printer.clearScreen();
 
         int axisSize = board.size;
 
