@@ -12,6 +12,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -24,8 +27,9 @@ public class GameTest {
     public void setup() {
         System.setOut(new PrintStream(outContent));
         System.setIn(inContent);
+
         board = new Board(10);
-        ui = new Ui(new ConsolePrinter(), new ConsoleReceiver());
+        ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardPrinter());
         game = new Game(board, ui);
 
     }
@@ -46,6 +50,17 @@ public class GameTest {
     public void testInputMapsToStruckShip() throws IOException {
         game.playersTurn();
         assertEquals(board.getStateAt(0,0), State.MISS);
+    }
+
+    @Test
+    public void testPrintsBoardOnPlayerTurn() throws IOException {
+        Ui mockUi = mock(Ui.class);
+        when(mockUi.getUserInput()).thenReturn("0,0");
+        Game game = new Game(board, mockUi);
+
+        game.playersTurn();
+
+        verify(mockUi).printBoard(board);
     }
 
     @Ignore // unsure why this fails, outcontent contains "" but works in console

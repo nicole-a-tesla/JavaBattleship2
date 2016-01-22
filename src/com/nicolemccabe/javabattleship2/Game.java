@@ -15,7 +15,9 @@ public class Game {
     }
 
     public void playersTurn() throws IOException {
+        ui.printBoard(board);
         ui.requestXY();
+
         List targetCoords= getTargetCoords();
         int x = (int) targetCoords.get(0);
         int y = (int) targetCoords.get(1);
