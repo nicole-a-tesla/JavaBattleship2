@@ -44,7 +44,9 @@ public class Game {
         }
         TimeUnit.MILLISECONDS.sleep(200);
         fireAtRandom(welcomeString, 0);
-
+        TimeUnit.MILLISECONDS.sleep(300);
+        printer.print("WELCOME TO BATTLESHIP\n");
+        TimeUnit.SECONDS.sleep(2);
     }
 
     public void printNewShip(String ship) throws InterruptedException {
@@ -56,25 +58,38 @@ public class Game {
             ui.print("\n");
         }
 
-        TimeUnit.MILLISECONDS.sleep(100);
+        TimeUnit.MILLISECONDS.sleep(150);
 
     }
 
     private String fireAtRandom(String shipString, int count) throws InterruptedException {
-        if (count == 20) {
+        if (count == 15) {
             return shipString;
+
         } else {
 
-            Random rand = new Random();
-            int  n = rand.nextInt(shipString.length()) + 1;
-//            if (shipString. != "n" && shipString.charAt(n+1) != "n") {
+            int n = new Random().nextInt(shipString.length() - 115) + 1;
+            String charToReplace = shipString.substring(n, n + 1);
 
-            String newShipString = shipString.substring(0, n) + bang + shipString.substring(n+1);
-            printNewShip(newShipString);
+            if (isNotPartOfNewline(charToReplace)) {
+                String newShipString = shipString.substring(0, n) + bang + shipString.substring(n + 1);
+                printNewShip(newShipString);
+                return fireAtRandom(newShipString, count + 1);
+            } else {
+                printNewShip(shipString);
+                return fireAtRandom(shipString, count + 1);
+            }
+        }
+    }
 
-            return fireAtRandom(newShipString, count + 1);
+    public boolean isNotPartOfNewline(String character) {
+        boolean goodToGo = true;
+
+        if (character.matches("[\\n\\r]+")) {
+            goodToGo = false;
         }
 
+        return goodToGo;
     }
 
     public void playersTurn() throws IOException {

@@ -10,8 +10,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,6 +25,22 @@ public class GameTest {
     private Game game;
     private Board board;
     private Ui ui;
+    private String welcomeString =
+            "                                     |__\n" +
+                    "                                     |\\/\n" +
+                    "                                     ---\n" +
+                    "                                     / | [\n" +
+                    "                              !      | |||\n" +
+                    "                            _/|     _/|-++'\n" +
+                    "                        +  +--|    |--|--|_ |-\n" +
+                    "                     { /|__|  |/\\__|  |--- |||__/\n" +
+                    "                    +---------------___[}-_===_.'____                 /\\\n" +
+                    "                ____`-' ||___-{]_| _[}-  |     |_[___\\==--            \\/   _\n" +
+                    " __..._____--==/___]_|__|_____________________________[___\\==--____,------' .7\n" +
+                    "|                                                                          /\n" +
+                    " \\_________________________________________________________________________|";
+    private ArrayList<String> welcomeList = new ArrayList<>(Arrays.asList(welcomeString.split("\n")));
+
 
     @Before
     public void setup() {
@@ -31,6 +50,19 @@ public class GameTest {
         board = new Board(10);
         ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardPrinter());
         game = new Game(board, ui);
+
+    }
+
+    @Test
+    public void doesntReplacementNewlines() {
+        String newLine = "\n";
+        assertFalse(game.isNotPartOfNewline(newLine));
+    }
+
+    @Test
+    public void replacesNonNewlines() {
+        String notNewline = " ";
+        assertTrue(game.isNotPartOfNewline(notNewline));
 
     }
 
