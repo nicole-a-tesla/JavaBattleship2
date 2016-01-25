@@ -10,7 +10,7 @@ public class GameLauncher {
 
 
         Game game = new Game(board, ui);
-        game.setShipAt(0,0);
+        game.setShipAt(new Ship(1), 0,0);
 
         game.welcomeSequence();
         game.playersTurn();

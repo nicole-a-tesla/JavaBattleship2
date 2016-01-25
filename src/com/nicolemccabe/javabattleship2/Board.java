@@ -26,9 +26,9 @@ public class Board {
         return getStateAt(x, y);
     }
 
-    public State setShipAt(int x, int y) {
+    public State setShipAt(Ship ship, int x, int y) {
         Space space = getSpaceAt(x, y);
-        space.setShip();
+        space.setShip(ship);
         return getStateAt(x, y);
     }
 

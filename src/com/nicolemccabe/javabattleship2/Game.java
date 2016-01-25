@@ -54,8 +54,8 @@ public class Game {
         return board.logStrikeAt(x, y);
     }
 
-    public State setShipAt(int x, int y) {
-        return board.setShipAt(x, y);
+    public State setShipAt(Ship ship, int x, int y) {
+        return board.setShipAt(ship, x, y);
     }
 
     private void reportStrikeResults(State state) {

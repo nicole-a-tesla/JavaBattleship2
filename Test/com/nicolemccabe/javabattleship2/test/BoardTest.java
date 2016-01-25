@@ -1,6 +1,7 @@
 package com.nicolemccabe.javabattleship2.test;
 
 import com.nicolemccabe.javabattleship2.Board;
+import com.nicolemccabe.javabattleship2.Ship;
 import com.nicolemccabe.javabattleship2.Space;
 import com.nicolemccabe.javabattleship2.State;
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class BoardTest {
 
     @Test
     public void canSetShipAtCoords() {
-        State state = b.setShipAt(0,0);
+        State state = b.setShipAt(new Ship(1), 0,0);
         assertEquals(State.SHIP, state);
     }
 
