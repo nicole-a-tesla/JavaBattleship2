@@ -2,7 +2,6 @@ package com.nicolemccabe.javabattleship2.test;
 
 import com.nicolemccabe.javabattleship2.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ import static org.mockito.Mockito.when;
 public class UiTest {
     private Printer printer;
     private Receiver mockReceiver;
-    private BoardPrinter boardPrinter;
+    private BoardFormatter boardFormatter;
     private Board board;
 
     @Before
@@ -28,7 +27,7 @@ public class UiTest {
     public void printsToPrinter() {
         Printer mockPrinter = mock(ConsolePrinter.class);
         Receiver receiver = new ConsoleReceiver();
-        Ui ui = new Ui(mockPrinter, receiver, boardPrinter);
+        Ui ui = new Ui(mockPrinter, receiver, boardFormatter);
         String test = "0,0";
         ui.print(test);
         verify(mockPrinter).print(test);
@@ -36,14 +35,14 @@ public class UiTest {
 
     @Test
     public void receivesViaReceiver() throws IOException {
-        Ui ui = new Ui(printer, mockReceiver, boardPrinter);
+        Ui ui = new Ui(printer, mockReceiver, boardFormatter);
         ui.getUserInput();
         verify(mockReceiver).getUserInput();
     }
 
     @Test
     public void testUserInteractionOnXYRequest() throws IOException {
-        Ui ui = new Ui(printer, mockReceiver, new BoardPrinter());
+        Ui ui = new Ui(printer, mockReceiver, new BoardFormatter());
         when(mockReceiver.getUserInput()).thenReturn("0,0");
 
         Game game = new Game(board, ui);
@@ -54,12 +53,12 @@ public class UiTest {
 
     @Test
     public void testInternalBoardPrinter() throws IOException {
-        BoardPrinter mockBoardPrinter = mock(BoardPrinter.class);
-        Ui ui = new Ui(printer, new ConsoleReceiver(), mockBoardPrinter);
+        BoardFormatter mockBoardFormatter = mock(BoardFormatter.class);
+        Ui ui = new Ui(printer, new ConsoleReceiver(), mockBoardFormatter);
         Game game = new Game(board, ui);
 
         game.playersTurn();
-        verify(mockBoardPrinter).print(board);
+        verify(mockBoardFormatter).print(board);
     }
 
 }

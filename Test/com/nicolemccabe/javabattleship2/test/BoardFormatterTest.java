@@ -1,7 +1,7 @@
 package com.nicolemccabe.javabattleship2.test;
 
 import com.nicolemccabe.javabattleship2.Board;
-import com.nicolemccabe.javabattleship2.BoardPrinter;
+import com.nicolemccabe.javabattleship2.BoardFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,10 +11,10 @@ import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
 
-    public class BoardPrinterTest {
+    public class BoardFormatterTest {
         private String space = " \uD83C\uDF0A ";
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        private BoardPrinter printer = new BoardPrinter();
+        private BoardFormatter printer = new BoardFormatter();
 
         @Before
         public void setup() {

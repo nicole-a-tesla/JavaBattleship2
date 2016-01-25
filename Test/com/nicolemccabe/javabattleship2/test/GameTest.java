@@ -29,7 +29,7 @@ public class GameTest {
         System.setIn(inContent);
 
         board = new Board(10);
-        ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardPrinter());
+        ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardFormatter());
         game = new Game(board, ui);
 
     }

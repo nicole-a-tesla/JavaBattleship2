@@ -1,6 +1,6 @@
 package com.nicolemccabe.javabattleship2;
 
-public class BoardPrinter {
+public class BoardFormatter {
     private Printer printer = new ConsolePrinter();
     private final String padding = " ";
 
