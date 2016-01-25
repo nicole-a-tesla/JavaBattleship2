@@ -1,6 +1,7 @@
 package com.nicolemccabe.javabattleship2;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class GameLauncher {
 
@@ -10,10 +11,14 @@ public class GameLauncher {
 
 
         Game game = new Game(board, ui);
-        game.setShipAt(new Ship(1), 0,0);
+        int rand = new Random().nextInt(5) + 0;
+        game.setShipAt(new Ship(1), rand,rand);
 
         game.welcomeSequence();
-        game.playersTurn();
+
+        while (!game.gameIsOver) {
+            game.playersTurn();
+        }
 
     }
 

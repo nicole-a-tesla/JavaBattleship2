@@ -38,7 +38,7 @@ public class SpaceTest {
 
     @Test
     public void testUpdatesStateToHit() {
-        space.setShip(ship);
+        space.setShip(new Ship(2));
         space.logStrike();
         assertEquals(State.HIT, space.getState());
     }
@@ -47,11 +47,11 @@ public class SpaceTest {
     public void testUpdatesStateToSunk() {
         space.setShip(ship);
         space.logStrike();
-        assertTrue(space.isShipSunk());
+        assertTrue(space.shipIsSunk());
     }
 
     @Test
     public void testNonexistantShipsAreNotSunk() {
-        assertFalse(space.isShipSunk());
+        assertFalse(space.shipIsSunk());
     }
 }

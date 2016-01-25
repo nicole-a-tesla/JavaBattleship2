@@ -1,5 +1,5 @@
 package com.nicolemccabe.javabattleship2;
 
 public enum State {
-    WATER, SHIP, HIT, MISS
+    WATER, SHIP, HIT, MISS, SUNK
 }

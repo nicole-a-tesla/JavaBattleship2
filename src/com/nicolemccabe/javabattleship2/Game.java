@@ -10,6 +10,7 @@ public class Game {
     public Ui ui;
     public Printer printer = new ConsolePrinter();
     private WelcomeSequence welcomeSequence = new WelcomeSequence(printer);
+    public boolean gameIsOver = false;
 
     public Game(Board board, Ui ui) {
         this.board = board;
@@ -18,6 +19,7 @@ public class Game {
 
     public void welcomeSequence() throws InterruptedException {
         welcomeSequence.runWelcomeSequence();
+        printer.clearScreen();
     }
 
 
@@ -29,7 +31,15 @@ public class Game {
         int x = (int) targetCoords.get(0);
         int y = (int) targetCoords.get(1);
 
-        reportStrikeResults(strikeBoardAt(x, y));
+        State strikeResult = strikeBoardAt(x, y);
+        reportStrikeResults(strikeResult);
+        checkForGameOver(strikeResult);
+    }
+
+    public void checkForGameOver(State strikeResult) {
+        if (strikeResult == State.SUNK) {
+            gameIsOver = true;
+        }
     }
 
     public ArrayList getTargetCoords() throws IOException {
@@ -62,5 +72,6 @@ public class Game {
         String stateString = state.toString();
         System.out.println(stateString);
     }
+
 
 }

@@ -17,13 +17,21 @@ public class Space {
             state = State.MISS;
         } else {
             ship.logStrike();
-            state = State.HIT;
+            updateStateAccordingToShipState();
         }
         return state;
     }
 
+    private void updateStateAccordingToShipState() {
+        if (shipIsSunk()) {
+            state = State.SUNK;
+        } else {
+            state = State.HIT;
+        }
+    }
 
-    public boolean isShipSunk() {
+
+    public boolean shipIsSunk() {
         return ship != null && ship.isSunk();
     }
 

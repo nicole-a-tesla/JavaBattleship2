@@ -5,8 +5,6 @@ public class BoardFormatter {
     private final String padding = " ";
 
     public void print(Board board) {
-        printer.clearScreen();
-
         int axisSize = board.size;
 
         StringBuffer xAxis = getXAxis(axisSize);
