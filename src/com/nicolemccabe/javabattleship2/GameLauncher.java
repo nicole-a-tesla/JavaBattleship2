@@ -14,7 +14,7 @@ public class GameLauncher {
         int rand = new Random().nextInt(5) + 0;
         game.setShipAt(new Ship(1), rand,rand);
 
-        game.welcomeSequence();
+//        game.welcomeSequence();
 
         while (!game.gameIsOver) {
             game.playersTurn();

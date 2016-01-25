@@ -1,38 +1,41 @@
 package com.nicolemccabe.javabattleship2;
 
+import java.util.ArrayList;
+
 public class BoardFormatter {
     private Printer printer = new ConsolePrinter();
     private final String padding = " ";
+    private Board board;
 
     public void print(Board board) {
+        this.board = board;
         int axisSize = board.size;
 
         StringBuffer xAxis = getXAxis(axisSize);
-        StringBuffer row = collectSpacesIntoRow(axisSize);
-        StringBuffer formattedRows = formatRows(row, axisSize);
+        printer.print(String.valueOf(xAxis));
 
-       printer.print(String.valueOf(xAxis));
-       printer.print(String.valueOf(formattedRows));
+        int rowCount = 0;
+
+        for (ArrayList rowOfSpaces : rows()) {
+            StringBuffer rowOfStrings = collectSpacesIntoRow(rowOfSpaces, rowCount);
+            printer.print(String.valueOf(rowOfStrings));
+            rowCount++;
+        }
     }
 
-    private StringBuffer collectSpacesIntoRow(int axisSize) {
-        final String space = " \uD83C\uDF0A ";
+    private StringBuffer collectSpacesIntoRow(ArrayList<Space> row, int rowCount) {
+        StringBuffer rowIncubator = new StringBuffer();
 
-        StringBuffer row = new StringBuffer();
+        rowIncubator.append(y_axis_num(rowCount));
 
-        for (int i=0; i<axisSize; i++)
-            row.append(space);
+        for (Space space: row) {
+            String spaceRepresentation = " \uD83C\uDF0A ";
+            rowIncubator.append(spaceRepresentation);
+        }
 
-        return row;
-    }
+        rowIncubator.append("\n");
 
-    private StringBuffer formatRows(StringBuffer row, int axisSize) {
-        StringBuffer formattedRows = new StringBuffer();
-
-        for (int i=0; i<axisSize; i++)
-            formattedRows.append(y_axis_num(i) + row + "\n");
-
-        return formattedRows;
+        return rowIncubator;
     }
 
     private String y_axis_num(int axis_number) {
@@ -52,4 +55,7 @@ public class BoardFormatter {
         return padding + padding + element_number;
     }
 
+    private ArrayList<ArrayList> rows() {
+        return board.getGrid();
+    }
 }

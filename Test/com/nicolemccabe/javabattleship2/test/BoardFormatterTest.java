@@ -12,7 +12,8 @@ import java.io.PrintStream;
 import static junit.framework.Assert.assertEquals;
 
     public class BoardFormatterTest {
-        private String space = " \uD83C\uDF0A ";
+        private String water = " \uD83C\uDF0A ";
+        private String miss  = " \uD83D\uDCA8 ";
         private String screenClearer = "\u001B[2J\u001B[H";
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         private BoardFormatter printer = new BoardFormatter();
@@ -24,7 +25,7 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void test2x2BoardPrint() {
-            String expected_board = "   0  1\n0 " + space + space + "\n1 " + space + space + "\n";
+            String expected_board = "   0  1\n0 " + water + water + "\n1 " + water + water + "\n";
             Board board = new Board(2);
             printer.print(board);
 
@@ -33,11 +34,21 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void test3x3BoardPrint() {
-            String expected_board = "   0  1  2\n0 " + space + space + space + "\n1 " + space + space + space + "\n2 " + space + space + space + "\n";
+            String expected_board = "   0  1  2\n0 " + water + water + water + "\n1 " + water + water + water + "\n2 " + water + water + water + "\n";
             Board board = new Board(3);
             printer.print(board);
 
             assertEquals(expected_board, outContent.toString());
+        }
+
+        @Test
+        public void testMissFormatting() {
+            String expectedBoard = "   0  1\n0 " + miss + water + "\n1 " + water + water + "\n";
+            Board board = new Board(2);
+            board.logStrikeAt(0,0);
+            printer.print(board);
+
+            assertEquals(expectedBoard, outContent.toString());
         }
 
         @After
