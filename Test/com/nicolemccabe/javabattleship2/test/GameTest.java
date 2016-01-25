@@ -12,8 +12,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,10 +22,6 @@ public class GameTest {
     private Game game;
     private Board board;
     private Ui ui;
-    private WelcomeSequence welcomeSequence = new WelcomeSequence(new ConsolePrinter());
-    private String welcomeString = welcomeSequence.getWelcomeString();
-    private ArrayList<String> welcomeLines = welcomeSequence.getWelcomeLines();
-
 
     @Before
     public void setup() {

@@ -7,12 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 public class WelcomeSequence {
     private Printer printer;
-
-    public WelcomeSequence(Printer printer) {
-        this.printer = printer;
-    }
-
-    private final String bang =  "\uD83D\uDCA5";
     private final String welcomeString =
                     "                                     |__\n" +
                     "                                     |\\/\n" +
@@ -29,42 +23,36 @@ public class WelcomeSequence {
                     " \\_________________________________________________________________________|\n" +
                     " \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A \uD83C\uDF0A ";
 
-    private ArrayList<String> welcomeLines =  new ArrayList<>(Arrays.asList(welcomeString.split("\n")));
+    private ArrayList<String> welcomeLines =  splitAtNewlines(welcomeString);
 
-    public String getWelcomeString() {
-        return welcomeString;
-    }
-
-    public ArrayList<String> getWelcomeLines() {
-        return welcomeLines;
-    }
-
-    public String getBang() {
-        return bang;
+    public WelcomeSequence(Printer printer) {
+        this.printer = printer;
     }
 
     public void runWelcomeSequence() throws InterruptedException {
         printer.clearScreen();
 
         for (String str:welcomeLines) {
-            printer.print(str);
-            printer.print("\n");
+            printer.print(str + "\n");
             TimeUnit.MILLISECONDS.sleep(75);
         }
+
         TimeUnit.MILLISECONDS.sleep(200);
+
         fireAtRandom(welcomeString, 0);
         TimeUnit.MILLISECONDS.sleep(300);
+
         printer.print("WELCOME TO BATTLESHIP\n");
         TimeUnit.SECONDS.sleep(2);
     }
 
     public void printNewShip(String ship) throws InterruptedException {
         printer.clearScreen();
-        ArrayList<String> shipLinesArray = new ArrayList<>(Arrays.asList(ship.split("\n")));
 
-        for (String str: shipLinesArray) {
-            printer.print(str);
-            printer.print("\n");
+        ArrayList<String> newShipLines = splitAtNewlines(ship);
+
+        for (String str: newShipLines) {
+            printer.print(str + "\n");
         }
 
         TimeUnit.MILLISECONDS.sleep(150);
@@ -73,14 +61,13 @@ public class WelcomeSequence {
     private String fireAtRandom(String shipString, int count) throws InterruptedException {
         if (count == 15) {
             return shipString;
-
         } else {
 
-            int n = new Random().nextInt(shipString.length() - 115) + 1;
-            String charToReplace = shipString.substring(n, n + 1);
+            int rand = new Random().nextInt(shipString.length() - 115) + 1;
+            String charToReplace = shipString.substring(rand, rand + 1);
 
             if (isNotPartOfNewline(charToReplace)) {
-                String newShipString = shipString.substring(0, n) + bang + shipString.substring(n + 1);
+                String newShipString = addBangToString(shipString, rand);
                 printNewShip(newShipString);
                 return fireAtRandom(newShipString, count + 1);
             } else {
@@ -90,10 +77,19 @@ public class WelcomeSequence {
         }
     }
 
+    private String addBangToString(String shipString, int replacementIndex) {
+        String bang =  "\uD83D\uDCA5";
+        return shipString.substring(0, replacementIndex) + bang + shipString.substring(replacementIndex + 1);
+    }
+
+    private ArrayList<String> splitAtNewlines(String string) {
+        return new ArrayList<>(Arrays.asList(string.split("\n")));
+    }
+
     public boolean isNotPartOfNewline(String character) {
         boolean goodToGo = true;
 
-        if (character.matches("[\\n\\r]+")) {
+        if (character.matches("[\\n]+")) {
             goodToGo = false;
         }
 
