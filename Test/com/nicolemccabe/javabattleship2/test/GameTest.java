@@ -10,8 +10,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -63,12 +65,14 @@ public class GameTest {
         verify(mockUi).printBoard(board);
     }
 
-    @Ignore // fails, but test reports that contents are identical?
+    @Test
     public void testGetCoordsInput() throws IOException{
         ArrayList coords = game.getTargetCoords();
         ArrayList expected = new ArrayList();
         expected.add("0");
         expected.add("0");
-        assertEquals(expected, coords);
+
+        assertEquals(expected.get(1), String.valueOf(coords.get(1)));
+        assertEquals(expected.get(0), String.valueOf(coords.get(0)));
     }
 }
