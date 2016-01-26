@@ -54,4 +54,10 @@ public class SpaceTest {
     public void testNonexistantShipsAreNotSunk() {
         assertFalse(space.shipIsSunk());
     }
+
+    @Test
+    public void shootingWhileInStateMissBreaksNothing() {
+        space.logStrike();
+        space.logStrike();
+    }
 }

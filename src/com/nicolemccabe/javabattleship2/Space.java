@@ -13,7 +13,7 @@ public class Space {
     }
 
     public State logStrike() {
-        if (state == State.WATER) {
+        if (state == State.WATER || state == State.MISS) {
             state = State.MISS;
         } else {
             ship.logStrike();
