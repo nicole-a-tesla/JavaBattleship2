@@ -49,7 +49,7 @@ public class Game {
         return parseEachToInt(xAndYList);
     }
 
-    private ArrayList parseEachToInt(ArrayList<String> list) {
+    public ArrayList parseEachToInt(ArrayList<String> list) {
         ArrayList intList = new ArrayList();
 
         for (String str: list) {

@@ -75,4 +75,25 @@ public class GameTest {
         assertEquals(expected.get(1), String.valueOf(coords.get(1)));
         assertEquals(expected.get(0), String.valueOf(coords.get(0)));
     }
+
+    @Test
+    public void testGameOver() {
+        board.setShipAt(new Ship(1), 0, 0);
+        State resultingState = board.logStrikeAt(0,0);
+        game.checkForGameOver(resultingState);
+        assertTrue(game.gameIsOver);
+    }
+
+    @Test
+    public void testParseUserInput() {
+        ArrayList input = new ArrayList();
+        input.add("0");
+
+        ArrayList expected = new ArrayList();
+        expected.add(0);
+
+        ArrayList actual = game.parseEachToInt(input);
+
+        assertEquals(expected, actual);
+    }
 }
