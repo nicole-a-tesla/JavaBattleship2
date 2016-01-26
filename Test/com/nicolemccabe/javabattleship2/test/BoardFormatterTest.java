@@ -2,6 +2,7 @@ package com.nicolemccabe.javabattleship2.test;
 
 import com.nicolemccabe.javabattleship2.Board;
 import com.nicolemccabe.javabattleship2.BoardFormatter;
+import com.nicolemccabe.javabattleship2.Ship;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import static junit.framework.Assert.assertEquals;
     public class BoardFormatterTest {
         private String water = " \uD83C\uDF0A ";
         private String miss  = " \uD83D\uDCA8 ";
+        private String hit   = " \uD83D\uDCA5 ";
         private String screenClearer = "\u001B[2J\u001B[H";
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         private BoardFormatter printer = new BoardFormatter();
@@ -51,6 +53,16 @@ import static junit.framework.Assert.assertEquals;
             assertEquals(expectedBoard, outContent.toString());
         }
 
+        @Test
+        public void testHitFormatting() {
+            String expectedBoard = "   0  1\n0 " + hit + water + "\n1 " + water + water + "\n";
+            Board board = new Board(2);
+            board.setShipAt(new Ship(2), 0,0);
+            board.logStrikeAt(0,0);
+            printer.print(board);
+
+            assertEquals(expectedBoard, outContent.toString());
+        }
         @After
         public void cleanupStream() {
             System.setOut(null);

@@ -7,6 +7,7 @@ public class BoardFormatter {
     private final String padding = " ";
     private Board board;
 
+
     public void print(Board board) {
         this.board = board;
         int axisSize = board.size;
@@ -17,19 +18,20 @@ public class BoardFormatter {
         int rowCount = 0;
 
         for (ArrayList rowOfSpaces : rows()) {
-            StringBuffer rowOfStrings = collectSpacesIntoRow(rowOfSpaces, rowCount);
+            StringBuffer rowOfStrings = buildRow(rowOfSpaces, rowCount);
             printer.print(String.valueOf(rowOfStrings));
             rowCount++;
         }
     }
 
-    private StringBuffer collectSpacesIntoRow(ArrayList<Space> row, int rowCount) {
+    private StringBuffer buildRow(ArrayList<Space> row, int rowCount) {
         StringBuffer rowIncubator = new StringBuffer();
 
         rowIncubator.append(y_axis_num(rowCount));
 
         for (Space space: row) {
-            String spaceRepresentation = " \uD83C\uDF0A ";
+            State state = space.getState();
+            String spaceRepresentation = new StateMapper().mapState(state);
             rowIncubator.append(spaceRepresentation);
         }
 

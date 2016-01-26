@@ -63,12 +63,6 @@ public class GameTest {
         verify(mockUi).printBoard(board);
     }
 
-    @Ignore // unsure why this fails, outcontent contains "" but works in console
-    public void testFeedbackOnTurnResults() {
-        game.strikeBoardAt(0,0);
-        assertEquals("MISS", outContent.toString());
-    }
-
     @Ignore // fails, but test reports that contents are identical?
     public void testGetCoordsInput() throws IOException{
         ArrayList coords = game.getTargetCoords();
