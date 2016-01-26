@@ -15,10 +15,6 @@ import java.util.Arrays;
 import static junit.framework.Assert.assertEquals;
 
     public class BoardFormatterTest {
-        private String water = " \uD83C\uDF0A ";
-        private String miss  = " \uD83D\uDCA8 ";
-        private String hit   = " \uD83D\uDCA5 ";
-        private String sunk = " ♨️ ";
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         private BoardFormatter formatter = new BoardFormatter();
 
@@ -31,6 +27,7 @@ import static junit.framework.Assert.assertEquals;
         public void test2x2BoardPrint() {
             ArrayList<String> expected = new ArrayList<>();
             expected.add( "   0  1\n");
+            String water = " \uD83C\uDF0A ";
             expected.add("0 " + water + water + "\n");
             expected.add( "1 " + water + water + "\n");
             Board board = new Board(2);
@@ -46,6 +43,7 @@ import static junit.framework.Assert.assertEquals;
             Board board = new Board(1);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
+            String miss = " \uD83D\uDCA8 ";
             String expectedRow = "0 " + miss + "\n";
 
             assertEquals(expectedRow, formatted.get(1));
@@ -57,6 +55,7 @@ import static junit.framework.Assert.assertEquals;
             board.setShipAt(new Ship(2), 0,0);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
+            String hit = " \uD83D\uDCA5 ";
             String expectedRow = "0 " + hit + "\n";
 
             assertEquals(expectedRow, formatted.get(1));
@@ -68,6 +67,7 @@ import static junit.framework.Assert.assertEquals;
             board.setShipAt(new Ship(1), 0,0);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
+            String sunk = " ♨️ ";
             String expectedRow = "0 " + sunk + "\n";
 
             assertEquals(expectedRow, formatted.get(1));

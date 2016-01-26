@@ -1,10 +1,8 @@
 package com.nicolemccabe.javabattleship2;
 
 import java.util.ArrayList;
-import java.util.StringJoiner;
 
 public class BoardFormatter {
-    private Printer printer = new ConsolePrinter();
     private final String padding = " ";
     private Board board;
 
@@ -15,14 +13,12 @@ public class BoardFormatter {
 
         StringBuffer xAxis = getXAxis(axisSize);
         formatted.add(String.valueOf(xAxis));
-//        printer.print(String.valueOf(xAxis));
 
         int rowCount = 0;
 
         for (ArrayList rowOfSpaces : rows()) {
             StringBuffer rowOfStrings = buildRow(rowOfSpaces, rowCount);
             formatted.add(String.valueOf(rowOfStrings));
-//            printer.print(String.valueOf(rowOfStrings));
             rowCount++;
         }
         return formatted;

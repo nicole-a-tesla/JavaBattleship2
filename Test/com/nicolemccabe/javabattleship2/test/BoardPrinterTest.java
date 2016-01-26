@@ -16,7 +16,6 @@ import static org.junit.Assert.assertEquals;
 
 public class BoardPrinterTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private String water = " \uD83C\uDF0A ";
 
     @Before
     public void setup() {
@@ -33,6 +32,7 @@ public class BoardPrinterTest {
         ArrayList<String> formattedBoard = boardFormatter.format(board);
         boardPrinter.printBoard(formattedBoard);
 
+        String water = " \uD83C\uDF0A ";
         String expectedOutput = "   0  1\n0 " + water + water + "\n1 " + water + water + "\n";
 
         assertEquals(expectedOutput, outContent.toString());
