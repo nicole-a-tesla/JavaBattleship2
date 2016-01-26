@@ -7,8 +7,12 @@ public class GameLauncher {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Board board = new Board(10);
+        Printer consolePrinter = new ConsolePrinter();
+        BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
         BoardFormatter formatter = new BoardFormatter();
-        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), formatter);
+        BoardPrintManager boardPrintManager = new BoardPrintManager(formatter, boardPrinter);
+
+        Ui ui = new Ui(consolePrinter, new ConsoleReceiver(), boardPrintManager);
 
 
         Game game = new Game(board, ui);
@@ -21,7 +25,7 @@ public class GameLauncher {
             game.playersTurn();
         }
 
-        formatter.format(board);
+        boardPrintManager.formatAndPrintBoard(board);
     }
 
 }
