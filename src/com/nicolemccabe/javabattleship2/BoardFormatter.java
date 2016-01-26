@@ -1,27 +1,31 @@
 package com.nicolemccabe.javabattleship2;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 public class BoardFormatter {
     private Printer printer = new ConsolePrinter();
     private final String padding = " ";
     private Board board;
 
-
-    public void print(Board board) {
+    public ArrayList<String> format(Board board) {
         this.board = board;
         int axisSize = board.size;
+        ArrayList<String> formatted = new ArrayList<>();
 
         StringBuffer xAxis = getXAxis(axisSize);
-        printer.print(String.valueOf(xAxis));
+        formatted.add(String.valueOf(xAxis));
+//        printer.print(String.valueOf(xAxis));
 
         int rowCount = 0;
 
         for (ArrayList rowOfSpaces : rows()) {
             StringBuffer rowOfStrings = buildRow(rowOfSpaces, rowCount);
-            printer.print(String.valueOf(rowOfStrings));
+            formatted.add(String.valueOf(rowOfStrings));
+//            printer.print(String.valueOf(rowOfStrings));
             rowCount++;
         }
+        return formatted;
     }
 
     private StringBuffer buildRow(ArrayList<Space> row, int rowCount) {

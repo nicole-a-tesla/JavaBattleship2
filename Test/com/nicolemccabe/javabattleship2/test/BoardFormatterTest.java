@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -16,9 +18,9 @@ import static junit.framework.Assert.assertEquals;
         private String water = " \uD83C\uDF0A ";
         private String miss  = " \uD83D\uDCA8 ";
         private String hit   = " \uD83D\uDCA5 ";
-        private String screenClearer = "\u001B[2J\u001B[H";
+        private String sunk = " ♨️ ";
         private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        private BoardFormatter printer = new BoardFormatter();
+        private BoardFormatter formatter = new BoardFormatter();
 
         @Before
         public void setup() {
@@ -27,45 +29,49 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void test2x2BoardPrint() {
-            String expected_board = "   0  1\n0 " + water + water + "\n1 " + water + water + "\n";
+            ArrayList<String> expected = new ArrayList<>();
+            expected.add( "   0  1\n");
+            expected.add("0 " + water + water + "\n");
+            expected.add( "1 " + water + water + "\n");
             Board board = new Board(2);
-            printer.print(board);
+            ArrayList formatted = formatter.format(board);
 
-            assertEquals(expected_board, outContent.toString());
-        }
-
-        @Test
-        public void test3x3BoardPrint() {
-            String expected_board = "   0  1  2\n0 " + water + water + water + "\n1 " + water + water + water + "\n2 " + water + water + water + "\n";
-            Board board = new Board(3);
-            printer.print(board);
-
-            assertEquals(expected_board, outContent.toString());
+            assertEquals(expected.get(0), formatted.get(0));
+            assertEquals(expected.get(1), formatted.get(1));
+            assertEquals(expected.get(2), formatted.get(2));
         }
 
         @Test
         public void testMissFormatting() {
-            String expectedBoard = "   0  1\n0 " + miss + water + "\n1 " + water + water + "\n";
-            Board board = new Board(2);
+            Board board = new Board(1);
             board.logStrikeAt(0,0);
-            printer.print(board);
+            ArrayList<String> formatted = formatter.format(board);
+            String expectedRow = "0 " + miss + "\n";
 
-            assertEquals(expectedBoard, outContent.toString());
+            assertEquals(expectedRow, formatted.get(1));
         }
 
         @Test
         public void testHitFormatting() {
-            String expectedBoard = "   0  1\n0 " + hit + water + "\n1 " + water + water + "\n";
-            Board board = new Board(2);
+            Board board = new Board(1);
             board.setShipAt(new Ship(2), 0,0);
             board.logStrikeAt(0,0);
-            printer.print(board);
+            ArrayList<String> formatted = formatter.format(board);
+            String expectedRow = "0 " + hit + "\n";
 
-            assertEquals(expectedBoard, outContent.toString());
+            assertEquals(expectedRow, formatted.get(1));
         }
-        @After
-        public void cleanupStream() {
-            System.setOut(null);
+
+        @Test
+        public void testSunkFormatting() {
+            Board board = new Board(1);
+            board.setShipAt(new Ship(1), 0,0);
+            board.logStrikeAt(0,0);
+            ArrayList<String> formatted = formatter.format(board);
+            String expectedRow = "0 " + sunk + "\n";
+
+            assertEquals(expectedRow, formatted.get(1));
         }
+
 
     }

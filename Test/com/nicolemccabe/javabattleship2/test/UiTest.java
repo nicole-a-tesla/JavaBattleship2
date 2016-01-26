@@ -58,7 +58,7 @@ public class UiTest {
         Game game = new Game(board, ui);
 
         game.playersTurn();
-        verify(mockBoardFormatter).print(board);
+        verify(mockBoardFormatter).format(board);
     }
 
 }

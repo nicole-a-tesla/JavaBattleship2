@@ -28,7 +28,7 @@ public class Ui {
     }
 
     public void printBoard(Board board) {
-        boardFormatter.print(board);
+        boardFormatter.format(board);
     }
 
 }

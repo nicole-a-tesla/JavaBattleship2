@@ -21,7 +21,7 @@ public class GameLauncher {
             game.playersTurn();
         }
 
-        formatter.print(board);
+        formatter.format(board);
     }
 
 }
