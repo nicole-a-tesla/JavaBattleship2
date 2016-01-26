@@ -23,7 +23,6 @@ public class GameTest {
     private final ByteArrayInputStream inContent = new ByteArrayInputStream("0, 0".getBytes());
     private Game game;
     private Board board;
-    private Ui ui;
 
     @Before
     public void setup() {
@@ -31,7 +30,7 @@ public class GameTest {
         System.setIn(inContent);
 
         board = new Board(10);
-        ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardFormatter());
+        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardFormatter());
         game = new Game(board, ui);
 
     }
@@ -68,12 +67,12 @@ public class GameTest {
     @Test
     public void testGetCoordsInput() throws IOException{
         ArrayList coords = game.getTargetCoords();
-        ArrayList expected = new ArrayList();
-        expected.add("0");
-        expected.add("0");
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(0);
+        expected.add(0);
 
-        assertEquals(expected.get(1), String.valueOf(coords.get(1)));
-        assertEquals(expected.get(0), String.valueOf(coords.get(0)));
+        assertEquals(expected.get(1), coords.get(1));
+        assertEquals(expected.get(0), coords.get(0));
     }
 
     @Test
@@ -86,10 +85,10 @@ public class GameTest {
 
     @Test
     public void testParseUserInput() {
-        ArrayList input = new ArrayList();
+        ArrayList<String> input = new ArrayList<>();
         input.add("0");
 
-        ArrayList expected = new ArrayList();
+        ArrayList<Integer> expected = new ArrayList<>();
         expected.add(0);
 
         ArrayList actual = game.parseEachToInt(input);
