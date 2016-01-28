@@ -3,6 +3,8 @@ package test.java;
 import main.java.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -25,6 +27,8 @@ public class BoardPrintManagerTest {
     @Test
     public void sendsFormattedBoardToPrinter() {
         BoardFormatter formatter = new BoardFormatter();
+
+
         BoardPrinter mockPrinter = mock(BoardPrinter.class);
 
         BoardPrintManager manager = new BoardPrintManager(formatter, mockPrinter);
@@ -32,7 +36,9 @@ public class BoardPrintManagerTest {
         Board board = new Board(10);
         manager.formatAndPrintBoard(board);
 
-        verify(mockPrinter).printBoard(any());
+        ArrayList formatted = formatter.format(board);
+
+        verify(mockPrinter).printBoard(formatted);
 
     }
 }
