@@ -22,7 +22,6 @@ public class GameTest {
     private final ByteArrayInputStream inContent = new ByteArrayInputStream("0, 0".getBytes());
     private Game game;
     private Board board;
-    private BoardPrintManager boardPrintManager;
 
     @Before
     public void setup() {
@@ -30,12 +29,7 @@ public class GameTest {
         System.setIn(inContent);
 
         board = new Board(10);
-
-        BoardFormatter formatter = new BoardFormatter();
-        BoardPrinter boardPrinter = new BoardPrinter(new ConsolePrinter());
-        boardPrintManager = new BoardPrintManager(formatter, boardPrinter);
-
-        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(),boardPrintManager);
+        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardFormatter());
         game = new Game(board, ui);
 
     }
