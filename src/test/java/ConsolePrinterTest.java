@@ -1,6 +1,6 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.ConsolePrinter;
+import main.java.ConsolePrinter;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;

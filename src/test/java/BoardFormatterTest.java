@@ -1,8 +1,8 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.Board;
-import com.nicolemccabe.javabattleship2.BoardFormatter;
-import com.nicolemccabe.javabattleship2.Ship;
+import main.java.Board;
+import main.java.BoardFormatter;
+import main.java.Ship;
 import org.junit.Before;
 import org.junit.Test;
 

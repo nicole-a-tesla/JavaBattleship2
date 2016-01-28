@@ -1,7 +1,7 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.State;
-import com.nicolemccabe.javabattleship2.StateMapper;
+import main.java.State;
+import main.java.StateMapper;
 import org.junit.Ignore;
 import org.junit.Test;
 

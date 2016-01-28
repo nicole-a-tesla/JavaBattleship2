@@ -1,6 +1,6 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.ConsoleReceiver;
+import main.java.ConsoleReceiver;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

@@ -1,9 +1,9 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.Board;
-import com.nicolemccabe.javabattleship2.Ship;
-import com.nicolemccabe.javabattleship2.Space;
-import com.nicolemccabe.javabattleship2.State;
+import main.java.Board;
+import main.java.Ship;
+import main.java.Space;
+import main.java.State;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.nicolemccabe.javabattleship2;
+package main.java;
 
 import java.io.IOException;
 

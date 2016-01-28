@@ -1,4 +1,4 @@
-package com.nicolemccabe.javabattleship2;
+package main.java;
 
 public class ConsolePrinter extends Printer {
     public void print(String string){

@@ -1,6 +1,6 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.Ship;
+import main.java.Ship;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;

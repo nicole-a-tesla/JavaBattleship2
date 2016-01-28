@@ -1,8 +1,8 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.Ship;
-import com.nicolemccabe.javabattleship2.Space;
-import com.nicolemccabe.javabattleship2.State;
+import main.java.Ship;
+import main.java.Space;
+import main.java.State;
 import org.junit.Before;
 import org.junit.Test;
 

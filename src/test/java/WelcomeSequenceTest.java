@@ -1,7 +1,7 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.ConsolePrinter;
-import com.nicolemccabe.javabattleship2.WelcomeSequence;
+import main.java.ConsolePrinter;
+import main.java.WelcomeSequence;
 import org.junit.Before;
 import org.junit.Test;
 

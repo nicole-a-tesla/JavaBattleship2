@@ -1,8 +1,8 @@
 package test.java;
 
 import com.nicolemccabe.javabattleship2.*;
+import main.java.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
