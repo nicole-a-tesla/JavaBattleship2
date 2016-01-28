@@ -1,4 +1,4 @@
-package com.nicolemccabe.javabattleship2.test;
+package test.java;
 
 import com.nicolemccabe.javabattleship2.Board;
 import com.nicolemccabe.javabattleship2.Ship;

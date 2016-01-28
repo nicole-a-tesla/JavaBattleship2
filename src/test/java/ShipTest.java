@@ -1,9 +1,9 @@
-package com.nicolemccabe.javabattleship2.test;
+package test.java;
 
 import com.nicolemccabe.javabattleship2.Ship;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ShipTest {

@@ -1,16 +1,14 @@
-package com.nicolemccabe.javabattleship2.test;
+package test.java;
 
 import com.nicolemccabe.javabattleship2.Board;
 import com.nicolemccabe.javabattleship2.BoardFormatter;
 import com.nicolemccabe.javabattleship2.Ship;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static junit.framework.Assert.assertEquals;
 

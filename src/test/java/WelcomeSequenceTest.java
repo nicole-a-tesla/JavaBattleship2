@@ -1,11 +1,11 @@
-package com.nicolemccabe.javabattleship2.test;
+package test.java;
 
 import com.nicolemccabe.javabattleship2.ConsolePrinter;
 import com.nicolemccabe.javabattleship2.WelcomeSequence;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class WelcomeSequenceTest {
