@@ -1,6 +1,5 @@
 package test.java;
 
-import com.nicolemccabe.javabattleship2.*;
 import main.java.*;
 import org.junit.Before;
 import org.junit.Test;
