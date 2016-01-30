@@ -21,6 +21,7 @@ public class BoardPrintManagerTest {
         Board board = new Board(10);
         manager.formatAndPrintBoard(board);
 
+        
         verify(mockFormatter).format(board);
     }
 
