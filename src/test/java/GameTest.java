@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayInputStream inContent = new ByteArrayInputStream("0, 0".getBytes());
+    private final ByteArrayInputStream inContent = new ByteArrayInputStream("00".getBytes());
     private Game game;
     private Board board;
 
@@ -58,7 +58,7 @@ public class GameTest {
     @Test
     public void testPrintsBoardOnPlayerTurn() throws IOException {
         Ui mockUi = mock(Ui.class);
-        when(mockUi.getUserInput()).thenReturn("0,0");
+        when(mockUi.getUserInput()).thenReturn("00");
         Game game = new Game(board, mockUi);
 
         game.playersTurn();

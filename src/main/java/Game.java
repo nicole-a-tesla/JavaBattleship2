@@ -80,7 +80,7 @@ public class Game {
 
     public ArrayList getTargetCoords() throws IOException {
         String xAndYString = ui.getUserInput();
-        ArrayList<String> xAndYList = new ArrayList<>(Arrays.asList(xAndYString.split(",")));
+        ArrayList<String> xAndYList = new ArrayList<>(Arrays.asList(xAndYString.split("")));
 
         return parseEachToInt(xAndYList);
     }

@@ -35,7 +35,7 @@ public class UiTest {
         Receiver receiver = new ConsoleReceiver();
         BoardPrintManager manager = new BoardPrintManager(new BoardFormatter(), boardPrinter);
         Ui ui = new Ui(mockPrinter, receiver, manager);
-        String test = "0,0";
+        String test = "00";
         ui.print(test);
         verify(mockPrinter).print(test);
     }
@@ -50,7 +50,7 @@ public class UiTest {
     @Test
     public void testUserInteractionOnXYRequest() throws IOException {
         Ui ui = new Ui(printer, mockReceiver, boardPrintManager);
-        when(mockReceiver.getUserInput()).thenReturn("0,0");
+        when(mockReceiver.getUserInput()).thenReturn("00");
 
         Game game = new Game(board, ui);
 
