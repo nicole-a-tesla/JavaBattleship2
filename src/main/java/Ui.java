@@ -5,12 +5,12 @@ import java.io.IOException;
 public class Ui {
     private Printer printer;
     private Receiver receiver;
-    private BoardFormatter boardFormatter;
+    private BoardPrintManager boardPrintManager;
 
-    public Ui(Printer printer, Receiver receiver, BoardFormatter boardFormatter) {
+    public Ui(Printer printer, Receiver receiver, BoardPrintManager boardPrintManager) {
         this.printer = printer;
         this.receiver = receiver;
-        this.boardFormatter = boardFormatter;
+        this.boardPrintManager = boardPrintManager;
     }
 
     public void requestXY() {
@@ -28,7 +28,7 @@ public class Ui {
     }
 
     public void printBoard(Board board) {
-        boardFormatter.format(board);
+        boardPrintManager.formatAndPrintBoard(board);
     }
 
 }

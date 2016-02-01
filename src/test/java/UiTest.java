@@ -15,19 +15,26 @@ public class UiTest {
     private Receiver mockReceiver;
     private BoardFormatter boardFormatter;
     private Board board;
+    private BoardPrinter boardPrinter;
+    private BoardPrintManager boardPrintManager;
 
     @Before
     public void setup() {
         printer = new ConsolePrinter();
         mockReceiver = mock(ConsoleReceiver.class);
         board = new Board(10);
+        boardPrinter = new BoardPrinter(printer);
+        boardFormatter = new BoardFormatter();
+        boardPrintManager = new BoardPrintManager(boardFormatter, boardPrinter);
+
     }
 
     @Test
     public void printsToPrinter() {
         Printer mockPrinter = mock(ConsolePrinter.class);
         Receiver receiver = new ConsoleReceiver();
-        Ui ui = new Ui(mockPrinter, receiver, boardFormatter);
+        BoardPrintManager manager = new BoardPrintManager(new BoardFormatter(), boardPrinter);
+        Ui ui = new Ui(mockPrinter, receiver, manager);
         String test = "0,0";
         ui.print(test);
         verify(mockPrinter).print(test);
@@ -35,14 +42,14 @@ public class UiTest {
 
     @Test
     public void receivesViaReceiver() throws IOException {
-        Ui ui = new Ui(printer, mockReceiver, boardFormatter);
+        Ui ui = new Ui(printer, mockReceiver, boardPrintManager);
         ui.getUserInput();
         verify(mockReceiver).getUserInput();
     }
 
     @Test
     public void testUserInteractionOnXYRequest() throws IOException {
-        Ui ui = new Ui(printer, mockReceiver, new BoardFormatter());
+        Ui ui = new Ui(printer, mockReceiver, boardPrintManager);
         when(mockReceiver.getUserInput()).thenReturn("0,0");
 
         Game game = new Game(board, ui);
@@ -52,12 +59,14 @@ public class UiTest {
     }
 
     @Test
-    public void testInternalBoardPrinter() throws IOException {
+    public void testInternalBoardFormatter() throws IOException {
         BoardFormatter mockBoardFormatter = mock(BoardFormatter.class);
-        Ui ui = new Ui(printer, new ConsoleReceiver(), mockBoardFormatter);
+        BoardPrintManager manager = new BoardPrintManager(mockBoardFormatter, boardPrinter);
+        Ui ui = new Ui(printer, new ConsoleReceiver(), manager);
         Game game = new Game(board, ui);
 
         game.playersTurn();
+
         verify(mockBoardFormatter).format(board);
     }
 

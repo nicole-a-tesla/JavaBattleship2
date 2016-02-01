@@ -12,9 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -28,7 +26,13 @@ public class GameTest {
         System.setIn(inContent);
 
         board = new Board(10);
-        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardFormatter());
+
+        Printer consolePrinter = new ConsolePrinter();
+        BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
+        BoardFormatter boardFormatter = new BoardFormatter();
+        BoardPrintManager manager = new BoardPrintManager(boardFormatter, boardPrinter);
+
+        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), manager);
         game = new Game(board, ui);
 
     }
@@ -73,11 +77,21 @@ public class GameTest {
         assertEquals(expected.get(0), coords.get(0));
     }
 
+
+    public void setAndStrikeShips(Game game, Board board, int numOfShips) {
+        Ship[] ships = board.getShips();
+
+        for (int i=0; i<numOfShips; i++) {
+            board.setShipAt(ships[i], i, i);
+            game.strikeBoardAt(i,i);
+        }
+    }
+
     @Test
     public void testGameOver() {
-        board.setShipAt(new Ship(1), 0, 0);
-        State resultingState = board.logStrikeAt(0,0);
-        game.checkForGameOver(resultingState);
+        setAndStrikeShips(game, board, 5);
+
+        game.checkForGameOver();
         assertTrue(game.gameIsOver);
     }
 
@@ -93,4 +107,40 @@ public class GameTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testGameOverMessage() throws IOException {
+        setAndStrikeShips(game, board, 5);
+        game.checkForGameOver();
+        String[] outputArray = outContent.toString().split("\n");
+        String lastMessage = outputArray[outputArray.length - 1];
+
+        String expected = "You Win!";
+        assertEquals(expected, lastMessage);
+    }
+
+    @Test
+    public void testGameOverMessageSelectivity() {
+        setAndStrikeShips(game, board, 4);
+        game.checkForGameOver();
+        assertEquals("", outContent.toString());
+    }
+
+    @Test
+    public void testBoardSetup() {
+        game.setupBoard();
+        int numOfShipsSet = 0;
+
+        for (int x=0; x<10; x++) {
+            for (int y=0; y<10; y++) {
+                if (board.getStateAt(x,y) == State.SHIP) {
+                    numOfShipsSet++;
+                }
+            }
+        }
+
+        assertEquals(5, numOfShipsSet);
+
+    }
+
 }

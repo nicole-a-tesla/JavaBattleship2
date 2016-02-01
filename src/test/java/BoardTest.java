@@ -9,6 +9,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 public class BoardTest {
     Board b = new Board(10);
@@ -63,4 +66,39 @@ public class BoardTest {
         assertEquals(State.SHIP, state);
     }
 
+    @Test
+    public void hasFiveShips() {
+        assertEquals(5, b.getShips().length);
+    }
+
+    @Test
+    public void reportsAllShipsAreNotSunk() {
+        assertFalse(b.allSunk());
+    }
+
+    @Test
+    public void reportsAllShipsAreSunk() {
+        Ship[] ships = b.getShips();
+
+        for (int i=0; i<ships.length; i++) {
+            b.setShipAt(ships[i], i, i);
+            b.logStrikeAt(i, i);
+        }
+
+        assertTrue(b.allSunk());
+    }
+
+    @Test
+    public void reportsNotAllSunkIfOnlySomeSunk() {
+        Ship[] ships = b.getShips();
+
+        for (int i=0; i<ships.length; i++) {
+            b.setShipAt(ships[i], i, i);
+        }
+
+        b.logStrikeAt(0,0);
+        b.logStrikeAt(4,4);
+
+        assertFalse(b.allSunk());
+    }
 }
