@@ -7,22 +7,15 @@ public class GameLauncher {
     public static void main(String[] args) throws IOException, InterruptedException {
         Board board = new Board(10);
         BoardFormatter formatter = new BoardFormatter();
-        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), formatter);
+        Printer consolePrinter = new ConsolePrinter();
+        BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
+        BoardPrintManager manager = new BoardPrintManager(formatter, boardPrinter);
 
-
+        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), manager);
         Game game = new Game(board, ui);
-//        int rand = new Random().nextInt(5);
-//        game.setShipAt(new Ship(2), rand, rand);
-
-//        game.welcomeSequence();
-//
-//        while (!game.gameIsOver) {
-//            game.playersTurn();
-//        }
 
         game.startGame();
 
-        formatter.format(board);
     }
 
 }
