@@ -19,8 +19,7 @@ public class Ui {
     }
 
     public String getUserInput() throws IOException {
-        String received = receiver.getUserInput();
-        return received;
+        return receiver.getUserInput();
     }
 
     public void print(String string) {
