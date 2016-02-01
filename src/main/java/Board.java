@@ -10,10 +10,22 @@ public class Board {
     public Board(int size) {
         this.size = size;
         this.grid = buildGrid();
+        this.ships = buildFleet();
     }
 
     public Ship[] getShips() {
         return ships;
+    }
+
+    public boolean allSunk() {
+        boolean allSunk = true;
+
+        for (Ship ship: ships) {
+            if (!ship.isSunk()) {
+                allSunk = false;
+            }
+        }
+        return allSunk;
     }
 
     public ArrayList getGrid() {
@@ -59,6 +71,13 @@ public class Board {
             row.add(new Space());
 
         return row;
+    }
+
+    private Ship[] buildFleet() {
+        for (int i=0; i<5; i++) {
+            ships[i] = new Ship(1);
+        }
+        return ships;
     }
 
 }
