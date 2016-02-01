@@ -71,11 +71,21 @@ public class GameTest {
         assertEquals(expected.get(0), coords.get(0));
     }
 
+
+    public void setAndStrikeShips(Game game, Board board, int numOfShips) {
+        Ship[] ships = board.getShips();
+
+        for (int i=0; i<numOfShips; i++) {
+            board.setShipAt(ships[i], i, i);
+            game.strikeBoardAt(i,i);
+        }
+    }
+
     @Test
     public void testGameOver() {
-        board.setShipAt(new Ship(1), 0, 0);
-        State resultingState = board.logStrikeAt(0,0);
-        game.checkForGameOver(resultingState);
+        setAndStrikeShips(game, board, 5);
+
+        game.checkForGameOver();
         assertTrue(game.gameIsOver);
     }
 
@@ -94,11 +104,34 @@ public class GameTest {
 
     @Test
     public void testGameOverMessage() throws IOException {
-        board.setShipAt(new Ship(1), 0,0);
-        State sunkState = game.strikeBoardAt(0,0);
-        game.checkForGameOver(sunkState);
+        setAndStrikeShips(game, board, 5);
+        game.checkForGameOver();
         String gameOverMessage = "You Win!";
         assertEquals(gameOverMessage, outContent.toString());
+    }
+
+    @Test
+    public void testGameOverMessageSelectivity() {
+        setAndStrikeShips(game, board, 4);
+        game.checkForGameOver();
+        assertEquals("", outContent.toString());
+    }
+
+    @Test
+    public void testBoardSetup() {
+        game.setupBoard();
+        int numOfShipsSet = 0;
+
+        for (int x=0; x<10; x++) {
+            for (int y=0; y<10; y++) {
+                if (board.getStateAt(x,y) == State.SHIP) {
+                    numOfShipsSet++;
+                }
+            }
+        }
+
+        assertEquals(5, numOfShipsSet);
+
     }
 
 }

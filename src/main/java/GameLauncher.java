@@ -1,7 +1,6 @@
 package main.java;
 
 import java.io.IOException;
-import java.util.Random;
 
 public class GameLauncher {
 
@@ -12,14 +11,16 @@ public class GameLauncher {
 
 
         Game game = new Game(board, ui);
-        int rand = new Random().nextInt(5);
-        game.setShipAt(new Ship(2), rand, rand);
+//        int rand = new Random().nextInt(5);
+//        game.setShipAt(new Ship(2), rand, rand);
 
-        game.welcomeSequence();
+//        game.welcomeSequence();
+//
+//        while (!game.gameIsOver) {
+//            game.playersTurn();
+//        }
 
-        while (!game.gameIsOver) {
-            game.playersTurn();
-        }
+        game.startGame();
 
         formatter.format(board);
     }
