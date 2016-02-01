@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayInputStream inContent = new ByteArrayInputStream("0, 0".getBytes());
+    private final ByteArrayInputStream inContent = new ByteArrayInputStream("A0".getBytes());
     private Game game;
     private Board board;
 
@@ -58,7 +58,7 @@ public class GameTest {
     @Test
     public void testPrintsBoardOnPlayerTurn() throws IOException {
         Ui mockUi = mock(Ui.class);
-        when(mockUi.getUserInput()).thenReturn("0,0");
+        when(mockUi.getUserInput()).thenReturn("A0");
         Game game = new Game(board, mockUi);
 
         game.playersTurn();
@@ -68,13 +68,10 @@ public class GameTest {
 
     @Test
     public void testGetCoordsInput() throws IOException{
-        ArrayList coords = game.getTargetCoords();
-        ArrayList<Integer> expected = new ArrayList<>();
-        expected.add(0);
-        expected.add(0);
+        CoordinateSet coords = game.getTargetCoords();
 
-        assertEquals(expected.get(1), coords.get(1));
-        assertEquals(expected.get(0), coords.get(0));
+        assertEquals(0, coords.getXValue());
+        assertEquals(0, coords.getYValue());
     }
 
 
@@ -95,18 +92,6 @@ public class GameTest {
         assertTrue(game.gameIsOver);
     }
 
-    @Test
-    public void testParseUserInput() {
-        ArrayList<String> input = new ArrayList<>();
-        input.add("0");
-
-        ArrayList<Integer> expected = new ArrayList<>();
-        expected.add(0);
-
-        ArrayList actual = game.parseEachToInt(input);
-
-        assertEquals(expected, actual);
-    }
 
     @Test
     public void testGameOverMessage() throws IOException {
@@ -138,9 +123,7 @@ public class GameTest {
                 }
             }
         }
-
         assertEquals(5, numOfShipsSet);
-
     }
-
+    
 }

@@ -15,12 +15,11 @@ public class Ui {
 
     public void requestXY() {
         printer.print("Time to shoot stuff!\n");
-        printer.print("Enter your target's coordinates as 'x, y' :");
+        printer.print("Enter your target's coordinates :");
     }
 
     public String getUserInput() throws IOException {
-        String received = receiver.getUserInput();
-        return received;
+        return receiver.getUserInput();
     }
 
     public void print(String string) {

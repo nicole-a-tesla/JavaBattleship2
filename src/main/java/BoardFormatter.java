@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class BoardFormatter {
     private final String padding = " ";
     private Board board;
+    private String[] yAxisMap = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
 
     public ArrayList<String> format(Board board) {
         this.board = board;
@@ -41,7 +42,7 @@ public class BoardFormatter {
     }
 
     private String y_axis_num(int axis_number) {
-        return axis_number + padding;
+        return yAxisMap[axis_number] + padding;
     }
 
     private StringBuffer getXAxis(int size) {
