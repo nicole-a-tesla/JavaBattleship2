@@ -143,4 +143,13 @@ public class GameTest {
 
     }
 
+    @Test
+    public void testUserInputIsReversed() {
+        ArrayList processed = game.processTargetCoords("01");
+        ArrayList expected = new ArrayList();
+        expected.add(1);
+        expected.add(0);
+        assertEquals(expected, processed);
+    }
+
 }

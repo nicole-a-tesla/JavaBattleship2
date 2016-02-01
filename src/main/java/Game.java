@@ -79,7 +79,13 @@ public class Game {
     }
 
     public ArrayList getTargetCoords() throws IOException {
-        String xAndYString = ui.getUserInput();
+        String userInput = ui.getUserInput();
+        return processTargetCoords(userInput);
+    }
+
+    public ArrayList processTargetCoords(String userInput) {
+        String xAndYString = reverseUserInput(userInput);
+
         ArrayList<String> xAndYList = new ArrayList<>(Arrays.asList(xAndYString.split("")));
 
         return parseEachToInt(xAndYList);
@@ -94,6 +100,10 @@ public class Game {
         }
 
         return intList;
+    }
+
+    private String reverseUserInput(String userInput) {
+        return new StringBuilder(userInput).reverse().toString();
     }
 
     public State strikeBoardAt(int x, int y) {
