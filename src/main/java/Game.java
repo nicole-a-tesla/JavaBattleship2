@@ -39,6 +39,7 @@ public class Game {
     public void checkForGameOver(State strikeResult) {
         if (strikeResult == State.SUNK) {
             gameIsOver = true;
+            printer.print("You Win!");
         }
     }
 

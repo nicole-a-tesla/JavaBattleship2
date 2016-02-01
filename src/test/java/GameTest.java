@@ -12,9 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -93,4 +91,14 @@ public class GameTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testGameOverMessage() throws IOException {
+        board.setShipAt(new Ship(1), 0,0);
+        State sunkState = game.strikeBoardAt(0,0);
+        game.checkForGameOver(sunkState);
+        String gameOverMessage = "You Win!";
+        assertEquals(gameOverMessage, outContent.toString());
+    }
+
 }
