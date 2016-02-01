@@ -61,9 +61,9 @@ public class Game {
         ui.printBoard(board);
         ui.requestXY();
 
-        List targetCoords= getTargetCoords();
-        int x = (int) targetCoords.get(0);
-        int y = (int) targetCoords.get(1);
+        CoordinateSet targetCoords= getTargetCoords();
+        int x = targetCoords.getXValue();
+        int y = targetCoords.getYValue();
 
         State strikeResult = strikeBoardAt(x, y);
         reportStrikeResults(strikeResult);
@@ -78,32 +78,9 @@ public class Game {
         }
     }
 
-    public ArrayList getTargetCoords() throws IOException {
+    public CoordinateSet getTargetCoords() throws IOException {
         String userInput = ui.getUserInput();
-        return processTargetCoords(userInput);
-    }
-
-    public ArrayList processTargetCoords(String userInput) {
-        String xAndYString = reverseUserInput(userInput);
-
-        ArrayList<String> xAndYList = new ArrayList<>(Arrays.asList(xAndYString.split("")));
-
-        return parseEachToInt(xAndYList);
-    }
-
-    public ArrayList parseEachToInt(ArrayList<String> list) {
-        ArrayList intList = new ArrayList();
-
-        for (String str: list) {
-            int numAsInt = Integer.parseInt(str.trim());
-            intList.add(numAsInt);
-        }
-
-        return intList;
-    }
-
-    private String reverseUserInput(String userInput) {
-        return new StringBuilder(userInput).reverse().toString();
+        return new CoordinateSet(userInput);
     }
 
     public State strikeBoardAt(int x, int y) {
