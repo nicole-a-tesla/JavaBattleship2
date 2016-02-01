@@ -112,8 +112,11 @@ public class GameTest {
     public void testGameOverMessage() throws IOException {
         setAndStrikeShips(game, board, 5);
         game.checkForGameOver();
-        String gameOverMessage = "You Win!";
-        assertEquals(gameOverMessage, outContent.toString());
+        String[] outputArray = outContent.toString().split("\n");
+        String lastMessage = outputArray[outputArray.length - 1];
+
+        String expected = "You Win!";
+        assertEquals(expected, lastMessage);
     }
 
     @Test

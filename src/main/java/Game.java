@@ -73,7 +73,8 @@ public class Game {
     public void checkForGameOver() {
         if (board.allSunk()) {
             gameIsOver = true;
-            printer.print("You Win!");
+            ui.printBoard(board);
+            printer.print("You Win!\n");
         }
     }
 
