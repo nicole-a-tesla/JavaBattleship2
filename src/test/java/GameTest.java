@@ -26,7 +26,13 @@ public class GameTest {
         System.setIn(inContent);
 
         board = new Board(10);
-        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), new BoardFormatter());
+
+        Printer consolePrinter = new ConsolePrinter();
+        BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
+        BoardFormatter boardFormatter = new BoardFormatter();
+        BoardPrintManager manager = new BoardPrintManager(boardFormatter, boardPrinter);
+
+        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), manager);
         game = new Game(board, ui);
 
     }
