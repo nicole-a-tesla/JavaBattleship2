@@ -5,10 +5,15 @@ import java.util.ArrayList;
 public class Board {
     public int size;
     private ArrayList grid;
+    private Ship[] ships = new Ship[5];
 
     public Board(int size) {
         this.size = size;
         this.grid = buildGrid();
+    }
+
+    public Ship[] getShips() {
+        return ships;
     }
 
     public ArrayList getGrid() {

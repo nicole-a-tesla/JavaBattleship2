@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 
+
 public class BoardTest {
     Board b = new Board(10);
 
@@ -63,4 +64,8 @@ public class BoardTest {
         assertEquals(State.SHIP, state);
     }
 
+    @Test
+    public void hasFiveShips() {
+        assertEquals(5, b.getShips().length);
+    }
 }
