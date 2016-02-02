@@ -39,4 +39,11 @@ public class CoordinateSetTest {
         new CoordinateSet("0,0");
     }
 
+    @Test
+    public void throwsErrorOnNumericaStart() {
+        thrown.expect(IllegalArgumentException.class);
+        new CoordinateSet("100");
+
+    }
+
 }

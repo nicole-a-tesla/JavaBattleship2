@@ -1,5 +1,7 @@
 package main.java;
 
+import com.sun.deploy.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,7 +31,11 @@ public class CoordinateSet {
     }
 
     private int parseYValue(String yVal) {
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if (yVal.matches("\\d")) {
+            throw new IllegalArgumentException("Row choice cannot be numeric");
+        }
+
+        String alphabet = "ABCDEFGHIJ";
         return alphabet.indexOf(yVal.toUpperCase());
     }
 
