@@ -11,7 +11,7 @@ public class GameLauncher {
         BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
         BoardPrintManager manager = new BoardPrintManager(formatter, boardPrinter);
 
-        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), manager);
+        Ui ui = new Ui(consolePrinter, new ConsoleReceiver(), manager);
         Game game = new Game(board, ui);
 
         game.startGame();
