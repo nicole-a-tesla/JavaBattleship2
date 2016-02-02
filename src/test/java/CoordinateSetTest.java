@@ -40,10 +40,32 @@ public class CoordinateSetTest {
     }
 
     @Test
-    public void throwsErrorOnNumericaStart() {
+    public void throwsErrorOnNumericalStart() {
         thrown.expect(IllegalArgumentException.class);
-        new CoordinateSet("100");
-
+        new CoordinateSet("10");
     }
 
+    @Test
+    public void throwsErrorOnLongNonsense() {
+        thrown.expect(IllegalArgumentException.class);
+        new CoordinateSet("a4a4a4");
+    }
+
+    @Test
+    public void throwsErrorOnShortNonsense() {
+        thrown.expect(IllegalArgumentException.class);
+        new CoordinateSet(" 1");
+    }
+
+    @Test
+    public void throwsErrorOnWhitespaceOnly() {
+        thrown.expect(IllegalArgumentException.class);
+        new CoordinateSet(" ");
+    }
+
+    @Test
+    public void throwsErrorOnOutOfBoundsLetter() {
+        thrown.expect(IllegalArgumentException.class);
+        new CoordinateSet("v1");
+    }
 }

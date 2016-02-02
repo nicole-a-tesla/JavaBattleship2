@@ -1,16 +1,21 @@
 package main.java;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CoordinateSet {
     private int xValue;
     private int yValue;
+    private final String alphabet = "ABCDEFGHIJ";
 
     public CoordinateSet(String setString) {
+        if (!inputIsValid(setString)) {
+            throw new IllegalArgumentException();
+        }
+
         ArrayList<String> setList = inputAsArrayList(setString);
         removeWhitespace(setList);
 
@@ -31,19 +36,21 @@ public class CoordinateSet {
     }
 
     private int parseYValue(String yVal) {
-        if (yVal.matches("\\d")) {
-            throw new IllegalArgumentException("Row choice cannot be numeric");
-        }
-
-        String alphabet = "ABCDEFGHIJ";
-        return alphabet.indexOf(yVal.toUpperCase());
+        String upcaseY = yVal.toUpperCase();
+        return alphabet.indexOf(upcaseY);
     }
 
     private ArrayList<String> inputAsArrayList(String input) {
-        return new ArrayList<>(Arrays.asList(input.split("")));
+        return new ArrayList<>(Arrays.asList(input.toUpperCase().split("")));
     }
 
     private void removeWhitespace(ArrayList<String> userInput) {
         userInput.removeAll(Collections.singletonList(" "));
+    }
+
+    private boolean inputIsValid(String input) {
+        Pattern validPattern = Pattern.compile("\\s*[A-J]\\s*[0-9]\\s*");
+        Matcher matcher = validPattern.matcher(input);
+        return matcher.find();
     }
 }
