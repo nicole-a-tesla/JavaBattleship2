@@ -38,4 +38,5 @@ public class CoordinateSetTest {
         thrown.expect(IllegalArgumentException.class);
         new CoordinateSet("0,0");
     }
+
 }

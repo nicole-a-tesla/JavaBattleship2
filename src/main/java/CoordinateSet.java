@@ -30,7 +30,7 @@ public class CoordinateSet {
 
     private int parseYValue(String yVal) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        return alphabet.indexOf(yVal);
+        return alphabet.indexOf(yVal.toUpperCase());
     }
 
     private ArrayList<String> inputAsArrayList(String input) {
