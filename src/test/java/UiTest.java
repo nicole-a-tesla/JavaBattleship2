@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -68,6 +69,14 @@ public class UiTest {
         game.playersTurn();
 
         verify(mockBoardFormatter).format(board);
+    }
+
+    @Test
+    public void testInvalidInputMessage() {
+        Printer mockPrinter = mock(ConsolePrinter.class);
+        Ui ui = new Ui(mockPrinter, new ConsoleReceiver(), boardPrintManager);
+        ui.invalidInputMessage();
+        verify(mockPrinter).print("Invalid Input, please try again.\n");
     }
 
 }

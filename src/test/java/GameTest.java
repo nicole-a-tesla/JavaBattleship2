@@ -125,5 +125,4 @@ public class GameTest {
         }
         assertEquals(5, numOfShipsSet);
     }
-    
 }

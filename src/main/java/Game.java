@@ -80,7 +80,12 @@ public class Game {
 
     public CoordinateSet getTargetCoords() throws IOException {
         String userInput = ui.getUserInput();
-        return new CoordinateSet(userInput);
+        try {
+            return new CoordinateSet(userInput);
+        } catch (IllegalArgumentException e) {
+            ui.invalidInputMessage();
+            return getTargetCoords();
+        }
     }
 
     public State strikeBoardAt(int x, int y) {

@@ -1,7 +1,9 @@
 package test.java;
 
 import main.java.CoordinateSet;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,10 +24,18 @@ public class CoordinateSetTest {
     }
 
     @Test
-    public void testIgnoresExtraWhitespace() {
+    public void testIgnoresWhitespace() {
         CoordinateSet set = new CoordinateSet("   E   3    ");
         assertEquals(3, set.getXValue());
         assertEquals(4, set.getYValue());
+    }
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testThrowsErrorOnInvalidInput() {
+        thrown.expect(IllegalArgumentException.class);
+        new CoordinateSet("0,0");
     }
 }
