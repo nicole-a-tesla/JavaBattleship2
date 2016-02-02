@@ -30,4 +30,8 @@ public class Ui {
         boardPrintManager.formatAndPrintBoard(board);
     }
 
+    public void invalidInputMessage() {
+        printer.print("Invalid Input, please try again.\n");
+    }
+
 }

@@ -9,10 +9,9 @@ public class BoardFormatter {
 
     public ArrayList<String> format(Board board) {
         this.board = board;
-        int axisSize = board.size;
         ArrayList<String> formatted = new ArrayList<>();
 
-        StringBuffer xAxis = getXAxis(axisSize);
+        StringBuffer xAxis = getXAxis(board.size);
         formatted.add(String.valueOf(xAxis));
 
         int rowCount = 0;
