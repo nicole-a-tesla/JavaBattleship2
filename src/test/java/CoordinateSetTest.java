@@ -30,6 +30,13 @@ public class CoordinateSetTest {
         assertEquals(4, set.getYValue());
     }
 
+    @Test
+    public void ignoresCase() {
+        CoordinateSet set = new CoordinateSet("a0");
+        assertEquals(0, set.getYValue());
+        assertEquals(0, set.getXValue());
+    }
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -43,12 +50,6 @@ public class CoordinateSetTest {
     public void throwsErrorOnNumericalStart() {
         thrown.expect(IllegalArgumentException.class);
         new CoordinateSet("10");
-    }
-
-    @Test
-    public void throwsErrorOnLongNonsense() {
-        thrown.expect(IllegalArgumentException.class);
-        new CoordinateSet("a4a4a4");
     }
 
     @Test

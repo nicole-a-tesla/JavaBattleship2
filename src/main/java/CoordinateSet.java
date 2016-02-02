@@ -11,11 +11,13 @@ public class CoordinateSet {
     private int yValue;
 
     public CoordinateSet(String setString) {
-        if (!inputIsValid(setString)) {
+        String upcased = setString.toUpperCase();
+
+        if (!inputIsValid(upcased)) {
             throw new IllegalArgumentException();
         }
 
-        ArrayList<String> setList = inputAsArrayList(setString);
+        ArrayList<String> setList = inputAsArrayList(upcased);
         removeWhitespace(setList);
 
         this.xValue = parseXValue(setList.get(1));
