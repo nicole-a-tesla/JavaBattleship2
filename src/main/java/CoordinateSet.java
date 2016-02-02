@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 public class CoordinateSet {
     private int xValue;
     private int yValue;
-    private final String alphabet = "ABCDEFGHIJ";
 
     public CoordinateSet(String setString) {
         if (!inputIsValid(setString)) {
@@ -36,8 +35,8 @@ public class CoordinateSet {
     }
 
     private int parseYValue(String yVal) {
-        String upcaseY = yVal.toUpperCase();
-        return alphabet.indexOf(upcaseY);
+        String alphabet = "ABCDEFGHIJ";
+        return alphabet.indexOf(yVal);
     }
 
     private ArrayList<String> inputAsArrayList(String input) {
