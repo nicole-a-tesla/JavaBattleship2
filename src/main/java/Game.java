@@ -27,10 +27,11 @@ public class Game {
     }
 
     private void setShipAtRandom(Ship ship) {
-        int rand = new Random().nextInt(9);
+        int randX = new Random().nextInt(9);
+        int randY = new Random().nextInt(9);
 
-        if (board.getStateAt(rand, rand) == State.WATER) {
-            setShipAt(ship, rand, rand);
+        if (board.getStateAt(randX, randY) == State.WATER) {
+            setShipAt(ship, randX, randY);
         } else {
             setShipAtRandom(ship);
         }
