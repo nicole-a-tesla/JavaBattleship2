@@ -1,11 +1,14 @@
 package test.java;
 
 import main.java.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -19,6 +22,8 @@ public class UiTest {
     private Board board;
     private BoardPrinter boardPrinter;
     private BoardPrintManager boardPrintManager;
+    private ByteArrayInputStream inContent = new ByteArrayInputStream("A0".getBytes());
+    private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Before
     public void setup() {
@@ -28,6 +33,9 @@ public class UiTest {
         boardPrinter = new BoardPrinter(printer);
         boardFormatter = new BoardFormatter();
         boardPrintManager = new BoardPrintManager(boardFormatter, boardPrinter);
+
+        System.setIn(inContent);
+        System.setOut(new PrintStream(outContent));
     }
 
     @Test
@@ -61,9 +69,6 @@ public class UiTest {
 
     @Test
     public void testInternalBoardFormatter() throws IOException {
-        String input = "A0";
-        ByteArrayInputStream inContent = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inContent);
 
         BoardFormatter mockBoardFormatter = mock(BoardFormatter.class);
         BoardPrintManager manager = new BoardPrintManager(mockBoardFormatter, boardPrinter);
@@ -74,7 +79,6 @@ public class UiTest {
 
         verify(mockBoardFormatter).format(board);
 
-        System.setIn(null);
     }
 
     @Test
@@ -83,6 +87,13 @@ public class UiTest {
         Ui ui = new Ui(mockPrinter, new ConsoleReceiver(), boardPrintManager);
         ui.invalidInputMessage();
         verify(mockPrinter).print("Invalid Input, please try again.\n");
+    }
+
+
+    @After
+    public void cleanupStream() {
+        System.setIn(null);
+        System.setOut(null);
     }
 
 }

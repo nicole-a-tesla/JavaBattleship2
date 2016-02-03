@@ -3,23 +3,14 @@ package test.java;
 import main.java.Board;
 import main.java.BoardFormatter;
 import main.java.Ship;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 
     public class BoardFormatterTest {
-        private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         private BoardFormatter formatter = new BoardFormatter();
-
-        @Before
-        public void setup() {
-            System.setOut(new PrintStream(outContent));
-        }
 
         @Test
         public void test2x2BoardPrint() {
