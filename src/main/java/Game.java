@@ -20,26 +20,19 @@ public class Game {
 
     public void setupBoard() {
         Ship[] ships = board.getShips();
-        ArrayList<Integer> fullSpaces = new ArrayList<>();
 
         for (Ship ship: ships) {
-            setShipAtRandom(ship, fullSpaces);
+            setShipAtRandom(ship);
         }
     }
 
-    private void setShipAtRandom(Ship ship, ArrayList<Integer> fullSpaces) {
-        int rand = generateUnusedInt(fullSpaces);
-        fullSpaces.add(rand);
-        setShipAt(ship, rand, rand);
-    }
-
-    private int generateUnusedInt(ArrayList<Integer> usedInts) {
+    private void setShipAtRandom(Ship ship) {
         int rand = new Random().nextInt(9);
 
-        if (!usedInts.contains(rand)) {
-            return rand;
+        if (board.getStateAt(rand, rand) == State.WATER) {
+            setShipAt(ship, rand, rand);
         } else {
-            return generateUnusedInt(usedInts);
+            setShipAtRandom(ship);
         }
     }
 
