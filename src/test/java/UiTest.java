@@ -4,6 +4,7 @@ import main.java.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static junit.framework.Assert.assertEquals;
@@ -27,7 +28,6 @@ public class UiTest {
         boardPrinter = new BoardPrinter(printer);
         boardFormatter = new BoardFormatter();
         boardPrintManager = new BoardPrintManager(boardFormatter, boardPrinter);
-
     }
 
     @Test
@@ -61,6 +61,10 @@ public class UiTest {
 
     @Test
     public void testInternalBoardFormatter() throws IOException {
+        String input = "A0";
+        ByteArrayInputStream inContent = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inContent);
+
         BoardFormatter mockBoardFormatter = mock(BoardFormatter.class);
         BoardPrintManager manager = new BoardPrintManager(mockBoardFormatter, boardPrinter);
         Ui ui = new Ui(printer, new ConsoleReceiver(), manager);
@@ -69,6 +73,8 @@ public class UiTest {
         game.playersTurn();
 
         verify(mockBoardFormatter).format(board);
+
+        System.setIn(null);
     }
 
     @Test
