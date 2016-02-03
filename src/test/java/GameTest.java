@@ -1,6 +1,7 @@
 package test.java;
 
 import main.java.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -112,4 +113,9 @@ public class GameTest {
     }
 
 
+    @After
+    public void cleanupStream() {
+        System.setOut(null);
+        System.setIn(null);
+    }
 }

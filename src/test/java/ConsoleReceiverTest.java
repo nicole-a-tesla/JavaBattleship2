@@ -19,5 +19,7 @@ public class ConsoleReceiverTest {
         String input = receiver.getUserInput();
 
         assertEquals(test, input);
+
+        System.setIn(null);
     }
 }
