@@ -19,28 +19,7 @@ public class Game {
     }
 
     public void setupBoard() {
-        Ship[] ships = board.getShips();
-        ArrayList<Integer> fullSpaces = new ArrayList<>();
-
-        for (Ship ship: ships) {
-            setShipAtRandom(ship, fullSpaces);
-        }
-    }
-
-    private void setShipAtRandom(Ship ship, ArrayList<Integer> fullSpaces) {
-        int rand = generateUnusedInt(fullSpaces);
-        fullSpaces.add(rand);
-        setShipAt(ship, rand, rand);
-    }
-
-    private int generateUnusedInt(ArrayList<Integer> usedInts) {
-        int rand = new Random().nextInt(9);
-
-        if (!usedInts.contains(rand)) {
-            return rand;
-        } else {
-            return generateUnusedInt(usedInts);
-        }
+        board.setAllShipsAtRandom();
     }
 
     public void startGame() throws IOException, InterruptedException {

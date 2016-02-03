@@ -111,18 +111,5 @@ public class GameTest {
         assertEquals("", outContent.toString());
     }
 
-    @Test
-    public void testBoardSetup() {
-        game.setupBoard();
-        int numOfShipsSet = 0;
 
-        for (int x=0; x<10; x++) {
-            for (int y=0; y<10; y++) {
-                if (board.getStateAt(x,y) == State.SHIP) {
-                    numOfShipsSet++;
-                }
-            }
-        }
-        assertEquals(5, numOfShipsSet);
-    }
 }

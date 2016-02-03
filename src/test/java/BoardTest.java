@@ -4,6 +4,7 @@ import main.java.Board;
 import main.java.Ship;
 import main.java.Space;
 import main.java.State;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -100,5 +101,20 @@ public class BoardTest {
         b.logStrikeAt(4,4);
 
         assertFalse(b.allSunk());
+    }
+
+    @Test
+    public void testBoardSetup() {
+        b.setAllShipsAtRandom();
+        int numOfShipsSet = 0;
+
+        for (int x=0; x<10; x++) {
+            for (int y=0; y<10; y++) {
+                if (b.getStateAt(x,y) == State.SHIP) {
+                    numOfShipsSet++;
+                }
+            }
+        }
+        Assert.assertEquals(5, numOfShipsSet);
     }
 }
