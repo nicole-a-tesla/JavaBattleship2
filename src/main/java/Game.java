@@ -19,22 +19,7 @@ public class Game {
     }
 
     public void setupBoard() {
-        Ship[] ships = board.getShips();
-
-        for (Ship ship: ships) {
-            setShipAtRandom(ship);
-        }
-    }
-
-    private void setShipAtRandom(Ship ship) {
-        int randX = new Random().nextInt(9);
-        int randY = new Random().nextInt(9);
-
-        if (board.getStateAt(randX, randY) == State.WATER) {
-            setShipAt(ship, randX, randY);
-        } else {
-            setShipAtRandom(ship);
-        }
+        board.setAllShipsAtRandom();
     }
 
     public void startGame() throws IOException, InterruptedException {

@@ -1,6 +1,7 @@
 package main.java;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Board {
     public int size;
@@ -11,6 +12,23 @@ public class Board {
         this.size = size;
         this.grid = buildGrid();
         this.ships = buildFleet();
+    }
+
+    public void setAllShipsAtRandom() {
+        for (Ship ship: ships) {
+            setShipAtRandom(ship);
+        }
+    }
+
+    private void setShipAtRandom(Ship ship) {
+        int randX = new Random().nextInt(9);
+        int randY = new Random().nextInt(9);
+
+        if (getStateAt(randX, randY) == State.WATER) {
+            setShipAt(ship, randX, randY);
+        } else {
+            setShipAtRandom(ship);
+        }
     }
 
     public Ship[] getShips() {
