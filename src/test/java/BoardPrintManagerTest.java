@@ -17,7 +17,7 @@ public class BoardPrintManagerTest {
 
         BoardPrintManager manager = new BoardPrintManager(mockFormatter, boardPrinter);
 
-        Board board = new Board(10);
+        Board board = new Board(new Fleet(), 10);
         manager.formatAndPrintBoard(board);
 
         
@@ -33,7 +33,7 @@ public class BoardPrintManagerTest {
 
         BoardPrintManager manager = new BoardPrintManager(formatter, mockPrinter);
 
-        Board board = new Board(10);
+        Board board = new Board(new Fleet(), 10);
         manager.formatAndPrintBoard(board);
 
         ArrayList formatted = formatter.format(board);

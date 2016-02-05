@@ -29,7 +29,7 @@ public class UiTest {
     public void setup() {
         printer = new ConsolePrinter();
         mockReceiver = mock(ConsoleReceiver.class);
-        board = new Board(10);
+        board = new Board(new Fleet(), 10);
         boardPrinter = new BoardPrinter(printer);
         boardFormatter = new BoardFormatter();
         boardPrintManager = new BoardPrintManager(boardFormatter, boardPrinter);

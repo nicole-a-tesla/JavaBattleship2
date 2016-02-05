@@ -10,12 +10,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class FleetTest {
-    private Fleet fleet;
     private List<Ship> ships;
 
     @Before
     public void setup() {
-        fleet = new Fleet();
+        Fleet fleet = new Fleet();
         ships = fleet.getShips();
     }
 

@@ -1,18 +1,18 @@
 package main.java;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class Board {
     public int size;
     private ArrayList grid;
-    private Ship[] ships = new Ship[5];
+    private List<Ship> ships;
 
-    public Board(int size) {
+    public Board(Fleet fleet, int size) {
         this.size = size;
         this.grid = buildGrid();
-        this.ships = buildFleet();
+        this.ships = fleet.getShips();
     }
 
     public void setAllShipsAtRandom() {
@@ -32,7 +32,7 @@ public class Board {
         }
     }
 
-    public Ship[] getShips() {
+    public List<Ship> getShips() {
         return ships;
     }
 
@@ -92,13 +92,5 @@ public class Board {
         return row;
     }
 
-    private Ship[] buildFleet() {
-        for (int i=0; i<5; i++) {
-            ships[i] = new Ship("ship", 1);
-        }
-
-
-        return ships;
-    }
 
 }

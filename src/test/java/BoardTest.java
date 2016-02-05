@@ -1,13 +1,11 @@
 package test.java;
 
-import main.java.Board;
-import main.java.Ship;
-import main.java.Space;
-import main.java.State;
+import main.java.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,12 +13,12 @@ import static org.junit.Assert.assertTrue;
 
 
 public class BoardTest {
-    Board b = new Board(10);
+    Board b = new Board(new Fleet(), 10);
 
     @Test
     public void hasSize() {
         assertEquals(10, b.size);
-        b = new Board(7);
+        b = new Board(new Fleet(), 7);
         assertEquals(7, b.size);
     }
 
@@ -69,7 +67,7 @@ public class BoardTest {
 
     @Test
     public void hasFiveShips() {
-        assertEquals(5, b.getShips().length);
+        assertEquals(5, b.getShips().size());
     }
 
     @Test
@@ -79,10 +77,10 @@ public class BoardTest {
 
     @Test
     public void reportsAllShipsAreSunk() {
-        Ship[] ships = b.getShips();
+        List<Ship> ships = b.getShips();
 
-        for (int i=0; i<ships.length; i++) {
-            b.setShipAt(ships[i], i, i);
+        for (int i=0; i<ships.size(); i++) {
+            b.setShipAt(ships.get(i), i, i);
             b.logStrikeAt(i, i);
         }
 
@@ -91,10 +89,10 @@ public class BoardTest {
 
     @Test
     public void reportsNotAllSunkIfOnlySomeSunk() {
-        Ship[] ships = b.getShips();
+        List<Ship> ships = b.getShips();
 
-        for (int i=0; i<ships.length; i++) {
-            b.setShipAt(ships[i], i, i);
+        for (int i=0; i<ships.size(); i++) {
+            b.setShipAt(ships.get(i), i, i);
         }
 
         b.logStrikeAt(0,0);

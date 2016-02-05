@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +27,7 @@ public class GameTest {
         System.setOut(new PrintStream(outContent));
         System.setIn(inContent);
 
-        board = new Board(10);
+        board = new Board(new Fleet(), 10);
 
         Printer consolePrinter = new ConsolePrinter();
         BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
@@ -77,10 +78,10 @@ public class GameTest {
 
 
     public void setAndStrikeShips(Game game, Board board, int numOfShips) {
-        Ship[] ships = board.getShips();
+        List<Ship> ships = board.getShips();
 
         for (int i=0; i<numOfShips; i++) {
-            board.setShipAt(ships[i], i, i);
+            board.setShipAt(ships.get(i), i, i);
             game.strikeBoardAt(i,i);
         }
     }
