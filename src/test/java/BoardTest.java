@@ -95,20 +95,16 @@ public class BoardTest {
     @Test
     public void testBoardSetup() {
         b.setAllShipsAtRandom();
-        int numOfShipsSet = 0;
+        int numOfSpacesWithShips = 0;
 
         for (int x=0; x<10; x++) {
             for (int y=0; y<10; y++) {
                 if (b.getStateAt(x,y) == State.SHIP) {
-                    numOfShipsSet++;
+                    numOfSpacesWithShips++;
                 }
             }
         }
-        Assert.assertEquals(5, numOfShipsSet);
-    }
-
-    @Test
-    public void testFleet() {
+        Assert.assertEquals(17, numOfSpacesWithShips);
     }
 
 }

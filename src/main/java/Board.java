@@ -25,11 +25,33 @@ public class Board {
         int randX = new Random().nextInt(9);
         int randY = new Random().nextInt(9);
 
-        if (getStateAt(randX, randY) == State.WATER) {
-            setShipAt(ship, randX, randY);
-        } else {
+        if (!attemptSet(ship, randX, randY, 0)) {
             setShipAtRandom(ship);
         }
+    }
+
+    private boolean attemptSet(Ship ship, int x, int y, int depth) {
+        if (ship.getSize() == depth) {
+            return true;
+        }
+
+        if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
+                depth++;
+                if (attemptSet(ship, x + 1, y, depth)) {
+                    setShipAt(ship, x, y);
+                    return true;
+                }
+        }
+
+        return false;
+    }
+
+    private boolean positionIsOnBoard(int x, int y) {
+        return x < 10 && y < 10;
+    }
+
+    private boolean spaceIsEmpty(int x, int y) {
+        return getStateAt(x, y) == State.WATER;
     }
 
     public List<Ship> getShips() {
