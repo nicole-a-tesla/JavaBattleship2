@@ -76,19 +76,10 @@ public class GameTest {
         assertEquals(0, coords.getYValue());
     }
 
-
-    public void setAndStrikeShips(Game game, Board board, int numOfShips) {
-        List<Ship> ships = board.getShips();
-
-        for (int i=0; i<numOfShips; i++) {
-            board.setShipAt(ships.get(i), i, i);
-            game.strikeBoardAt(i,i);
-        }
-    }
-
     @Test
     public void testGameOver() {
-        setAndStrikeShips(game, board, 5);
+        List<Ship> ships = board.getShips();
+        Helpers.sinkThisManyShips(ships, 5);
 
         game.checkForGameOver();
         assertTrue(game.gameIsOver);
@@ -97,8 +88,11 @@ public class GameTest {
 
     @Test
     public void testGameOverMessage() throws IOException {
-        setAndStrikeShips(game, board, 5);
+        List<Ship> ships = board.getShips();
+        Helpers.sinkThisManyShips(ships, 5);
+
         game.checkForGameOver();
+
         String[] outputArray = outContent.toString().split("\n");
         String lastMessage = outputArray[outputArray.length - 1];
 
@@ -108,7 +102,9 @@ public class GameTest {
 
     @Test
     public void testGameOverMessageSelectivity() {
-        setAndStrikeShips(game, board, 4);
+        List<Ship> ships = board.getShips();
+        Helpers.sinkThisManyShips(ships, 4);
+
         game.checkForGameOver();
         assertEquals("", outContent.toString());
     }

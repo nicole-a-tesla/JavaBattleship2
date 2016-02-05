@@ -75,14 +75,11 @@ public class BoardTest {
         assertFalse(b.allSunk());
     }
 
+
     @Test
     public void reportsAllShipsAreSunk() {
         List<Ship> ships = b.getShips();
-
-        for (int i=0; i<ships.size(); i++) {
-            b.setShipAt(ships.get(i), i, i);
-            b.logStrikeAt(i, i);
-        }
+        Helpers.sinkThisManyShips(ships, 5);
 
         assertTrue(b.allSunk());
     }
@@ -90,13 +87,7 @@ public class BoardTest {
     @Test
     public void reportsNotAllSunkIfOnlySomeSunk() {
         List<Ship> ships = b.getShips();
-
-        for (int i=0; i<ships.size(); i++) {
-            b.setShipAt(ships.get(i), i, i);
-        }
-
-        b.logStrikeAt(0,0);
-        b.logStrikeAt(4,4);
+        Helpers.sinkThisManyShips(ships, 4);
 
         assertFalse(b.allSunk());
     }
