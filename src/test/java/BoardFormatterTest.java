@@ -41,7 +41,7 @@ import static junit.framework.Assert.assertEquals;
         @Test
         public void testHitFormatting() {
             Board board = new Board(1);
-            board.setShipAt(new Ship(2), 0,0);
+            board.setShipAt(new Ship("test", 2), 0,0);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
             String hit = " \uD83D\uDCA5 ";
@@ -53,7 +53,7 @@ import static junit.framework.Assert.assertEquals;
         @Test
         public void testSunkFormatting() {
             Board board = new Board(1);
-            board.setShipAt(new Ship(1), 0,0);
+            board.setShipAt(new Ship("test", 1), 0,0);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
             String sunk = " ♨️ ";

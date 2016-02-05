@@ -46,7 +46,7 @@ public class GameTest {
 
     @Test
     public void testGameSetsShipAndReturnsState() {
-        State resultingState = game.setShipAt(new Ship(1), 0,0);
+        State resultingState = game.setShipAt(new Ship("test", 1), 0,0);
         assertEquals(State.SHIP, resultingState);
     }
 

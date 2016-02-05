@@ -56,14 +56,14 @@ public class BoardTest {
 
     @Test
     public void reportsShipWasSunk() {
-        b.setShipAt(new Ship(1), 0,0);
+        b.setShipAt(new Ship("test", 1), 0,0);
         b.logStrikeAt(0,0);
         assertEquals(State.SUNK, b.getStateAt(0,0));
     }
 
     @Test
     public void canSetShipAtCoords() {
-        State state = b.setShipAt(new Ship(1), 0,0);
+        State state = b.setShipAt(new Ship("test", 1), 0,0);
         assertEquals(State.SHIP, state);
     }
 
@@ -117,4 +117,10 @@ public class BoardTest {
         }
         Assert.assertEquals(5, numOfShipsSet);
     }
+
+    @Test
+    public void testFleet() {
+    }
+
 }
+

@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 public class SpaceTest {
     Space space;
-    Ship ship = new Ship(1);
+    Ship ship = new Ship("test", 1);
 
     @Before
     public void setup() {
@@ -38,7 +38,7 @@ public class SpaceTest {
 
     @Test
     public void testUpdatesStateToHit() {
-        space.setShip(new Ship(2));
+        space.setShip(new Ship("test", 2));
         space.logStrike();
         assertEquals(State.HIT, space.getState());
     }

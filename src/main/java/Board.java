@@ -1,6 +1,7 @@
 package main.java;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Board {
@@ -93,8 +94,10 @@ public class Board {
 
     private Ship[] buildFleet() {
         for (int i=0; i<5; i++) {
-            ships[i] = new Ship(1);
+            ships[i] = new Ship("ship", 1);
         }
+
+
         return ships;
     }
 
