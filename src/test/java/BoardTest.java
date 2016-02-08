@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -107,5 +108,28 @@ public class BoardTest {
         Assert.assertEquals(17, numOfSpacesWithShips);
     }
 
+    @Test
+    public void testHorizontalSet() {
+        Board board = new Board(new Fleet(), 2);
+        board.attemptSet(new Ship("ship", 2), 0, 0, "horizontal", 0);
+
+        assertEquals(board.getStateAt(0,0), State.SHIP);
+        assertEquals(board.getStateAt(1,0), State.SHIP);
+
+        assertEquals(board.getStateAt(0,1), State.WATER);
+        assertEquals(board.getStateAt(1,1), State.WATER);
+    }
+
+    @Test
+    public void testVerticalSet() {
+        Board board = new Board(new Fleet(), 2);
+        board.attemptSet(new Ship("ship", 2), 0, 0, "vertical", 0);
+
+        assertEquals(board.getStateAt(0,0), State.SHIP);
+        assertEquals(board.getStateAt(0,1), State.SHIP);
+
+        assertEquals(board.getStateAt(1,0), State.WATER);
+        assertEquals(board.getStateAt(1,1), State.WATER);
+    }
 }
 

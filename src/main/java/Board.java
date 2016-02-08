@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Board {
@@ -20,25 +21,66 @@ public class Board {
     }
 
     private void setShipAtRandom(Ship ship) {
-        int randX = new Random().nextInt(9);
-        int randY = new Random().nextInt(9);
+        String[] orientations = {"vertical", "horizontal"};
+        String orientation = orientations[new Random().nextInt(2)];
+        int randX = new Random().nextInt(10);
+        int randY = new Random().nextInt(10);
 
-        if (!attemptSet(ship, randX, randY, 0)) {
+        if (!attemptSet(ship, randX, randY, orientation, 0)) {
             setShipAtRandom(ship);
         }
     }
 
-    private boolean attemptSet(Ship ship, int x, int y, int depth) {
+    public boolean attemptSet(Ship ship, int x, int y, String orientation, int depth) {
         if (ship.getSize() == depth) {
             return true;
         }
 
         if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
-                depth++;
-                if (attemptSet(ship, x + 1, y, depth)) {
+            if (Objects.equals(orientation, "horizontal")) {
+
+                if (attemptSet(ship, x+1, y, orientation, depth+1)) {
                     setShipAt(ship, x, y);
                     return true;
                 }
+
+            } else if (Objects.equals(orientation, "vertical")) {
+
+                if (attemptSet(ship, x, y+1, orientation, depth+1)) {
+                    setShipAt(ship, x, y);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean attemptHorizontalSet(Ship ship, int x, int y, int depth) {
+        if (ship.getSize() == depth) {
+            return true;
+        }
+
+        if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
+                if (attemptHorizontalSet(ship, x + 1, y, depth+1)) {
+                    setShipAt(ship, x, y);
+                    return true;
+                }
+        }
+
+        return false;
+    }
+
+    public boolean attemptVerticalSet(Ship ship, int x, int y, int depth) {
+        if (ship.getSize() == depth) {
+            return true;
+        }
+
+        if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
+            if (attemptVerticalSet(ship, x, y+1, depth+1)) {
+                setShipAt(ship, x, y);
+                return true;
+            }
         }
 
         return false;
