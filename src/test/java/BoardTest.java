@@ -111,7 +111,9 @@ public class BoardTest {
     @Test
     public void testHorizontalSet() {
         Board board = new Board(new Fleet(), 2);
-        board.attemptSet(new Ship("ship", 2), 0, 0, "horizontal", 0);
+        Ship ship = new Ship("ship", 2);
+        ShipSetArgs args = new ShipSetArgs(ship, 0, 0, "horizontal");
+        board.attemptSet(args, 0);
 
         assertEquals(board.getStateAt(0,0), State.SHIP);
         assertEquals(board.getStateAt(1,0), State.SHIP);
@@ -123,7 +125,9 @@ public class BoardTest {
     @Test
     public void testVerticalSet() {
         Board board = new Board(new Fleet(), 2);
-        board.attemptSet(new Ship("ship", 2), 0, 0, "vertical", 0);
+        Ship ship = new Ship("ship", 2);
+        ShipSetArgs args = new ShipSetArgs(ship, 0, 0, "vertical");
+        board.attemptSet(args, 0);
 
         assertEquals(board.getStateAt(0,0), State.SHIP);
         assertEquals(board.getStateAt(0,1), State.SHIP);

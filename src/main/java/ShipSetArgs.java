@@ -21,6 +21,10 @@ public class ShipSetArgs {
         return y;
     }
 
+    public Ship getShip() {
+        return ship;
+    }
+
     public ShipSetArgs nextArgs() {
         if (orientation == "horizontal") {
             return new ShipSetArgs(ship, x + 1, y, orientation);

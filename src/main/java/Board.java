@@ -26,31 +26,30 @@ public class Board {
         int randX = new Random().nextInt(10);
         int randY = new Random().nextInt(10);
 
-        if (!attemptSet(ship, randX, randY, orientation, 0)) {
+        ShipSetArgs args = new ShipSetArgs(ship, randX, randY, orientation);
+
+        if (!attemptSet(args, 0)) {
             setShipAtRandom(ship);
         }
     }
 
-    public boolean attemptSet(Ship ship, int x, int y, String orientation, int depth) {
+    public boolean attemptSet(ShipSetArgs args, int depth) {
+        Ship ship = args.getShip();
+
         if (ship.getSize() == depth) {
             return true;
         }
 
+        int x = args.getX();
+        int y = args.getY();
+
         if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
-            if (Objects.equals(orientation, "horizontal")) {
 
-                if (attemptSet(ship, x+1, y, orientation, depth+1)) {
-                    setShipAt(ship, x, y);
-                    return true;
-                }
-
-            } else if (Objects.equals(orientation, "vertical")) {
-
-                if (attemptSet(ship, x, y+1, orientation, depth+1)) {
-                    setShipAt(ship, x, y);
-                    return true;
-                }
+            if (attemptSet(args.nextArgs(), depth+1)) {
+                setShipAt(ship, x, y);
+                return true;
             }
+
         }
 
         return false;
