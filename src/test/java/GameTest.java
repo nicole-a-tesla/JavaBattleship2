@@ -9,7 +9,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -20,14 +19,17 @@ public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayInputStream inContent = new ByteArrayInputStream("A0".getBytes());
     private Game game;
-    private Board board;
+    private Board opponentBoard;
+    private Board playerBoard;
 
     @Before
     public void setup() {
         System.setOut(new PrintStream(outContent));
         System.setIn(inContent);
 
-        board = new Board(new Fleet(), 10);
+        opponentBoard = new Board(new Fleet(), 10);
+        playerBoard = new Board(new Fleet(), 10);
+
 
         Printer consolePrinter = new ConsolePrinter();
         BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
@@ -35,7 +37,7 @@ public class GameTest {
         BoardPrintManager manager = new BoardPrintManager(boardFormatter, boardPrinter);
 
         Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), manager);
-        game = new Game(board, ui);
+        game = new Game(opponentBoard, playerBoard, ui);
 
     }
 
@@ -54,18 +56,18 @@ public class GameTest {
     @Test
     public void testInputMapsToStruckShip() throws IOException {
         game.playersTurn();
-        assertEquals(board.getStateAt(0,0), State.MISS);
+        assertEquals(opponentBoard.getStateAt(0,0), State.MISS);
     }
 
     @Test
     public void testPrintsBoardOnPlayerTurn() throws IOException {
         Ui mockUi = mock(Ui.class);
         when(mockUi.getUserInput()).thenReturn("A0");
-        Game game = new Game(board, mockUi);
+        Game game = new Game(opponentBoard, playerBoard, mockUi);
 
         game.playersTurn();
 
-        verify(mockUi).printBoard(board);
+        verify(mockUi).printBoard(opponentBoard);
     }
 
     @Test
@@ -78,7 +80,7 @@ public class GameTest {
 
     @Test
     public void testGameOver() {
-        List<Ship> ships = board.getShips();
+        List<Ship> ships = opponentBoard.getShips();
         Helpers.sinkThisManyShips(ships, 5);
 
         game.checkForGameOver();
@@ -88,7 +90,7 @@ public class GameTest {
 
     @Test
     public void testGameOverMessage() throws IOException {
-        List<Ship> ships = board.getShips();
+        List<Ship> ships = opponentBoard.getShips();
         Helpers.sinkThisManyShips(ships, 5);
 
         game.checkForGameOver();
@@ -102,7 +104,7 @@ public class GameTest {
 
     @Test
     public void testGameOverMessageSelectivity() {
-        List<Ship> ships = board.getShips();
+        List<Ship> ships = opponentBoard.getShips();
         Helpers.sinkThisManyShips(ships, 4);
 
         game.checkForGameOver();
