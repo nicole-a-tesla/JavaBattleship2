@@ -1,5 +1,6 @@
 package test.java;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import main.java.*;
 import org.junit.After;
 import org.junit.Before;
