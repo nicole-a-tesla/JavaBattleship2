@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Board {
@@ -20,25 +21,35 @@ public class Board {
     }
 
     private void setShipAtRandom(Ship ship) {
-        int randX = new Random().nextInt(9);
-        int randY = new Random().nextInt(9);
+        String[] orientations = {"vertical", "horizontal"};
+        String orientation = orientations[new Random().nextInt(2)];
+        int randX = new Random().nextInt(10);
+        int randY = new Random().nextInt(10);
 
-        if (!attemptSet(ship, randX, randY, 0)) {
+        ShipSetArgs args = new ShipSetArgs(ship, randX, randY, orientation);
+
+        if (!attemptSet(args, 0)) {
             setShipAtRandom(ship);
         }
     }
 
-    private boolean attemptSet(Ship ship, int x, int y, int depth) {
+    public boolean attemptSet(ShipSetArgs args, int depth) {
+        Ship ship = args.getShip();
+
         if (ship.getSize() == depth) {
             return true;
         }
 
+        int x = args.getX();
+        int y = args.getY();
+
         if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
-                depth++;
-                if (attemptSet(ship, x + 1, y, depth)) {
-                    setShipAt(ship, x, y);
-                    return true;
-                }
+
+            if (attemptSet(args.nextArgs(), depth+1)) {
+                setShipAt(ship, x, y);
+                return true;
+            }
+
         }
 
         return false;
