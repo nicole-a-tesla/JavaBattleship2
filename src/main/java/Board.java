@@ -56,36 +56,6 @@ public class Board {
         return false;
     }
 
-    public boolean attemptHorizontalSet(Ship ship, int x, int y, int depth) {
-        if (ship.getSize() == depth) {
-            return true;
-        }
-
-        if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
-                if (attemptHorizontalSet(ship, x + 1, y, depth+1)) {
-                    setShipAt(ship, x, y);
-                    return true;
-                }
-        }
-
-        return false;
-    }
-
-    public boolean attemptVerticalSet(Ship ship, int x, int y, int depth) {
-        if (ship.getSize() == depth) {
-            return true;
-        }
-
-        if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
-            if (attemptVerticalSet(ship, x, y+1, depth+1)) {
-                setShipAt(ship, x, y);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private boolean positionIsOnBoard(int x, int y) {
         return x < 10 && y < 10;
     }
