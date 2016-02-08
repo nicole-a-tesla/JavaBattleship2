@@ -51,7 +51,7 @@ public class SpaceTest {
     }
 
     @Test
-    public void testNonexistantShipsAreNotSunk() {
+    public void testNonexistentShipsAreNotSunk() {
         assertFalse(space.shipIsSunk());
     }
 
@@ -59,5 +59,33 @@ public class SpaceTest {
     public void shootingWhileInStateMissBreaksNothing() {
         space.logStrike();
         space.logStrike();
+    }
+
+    @Test
+    public void testMultipleSpacesGetSunk() {
+        Ship ship = new Ship("test", 2);
+        space.setShip(ship);
+
+        Space space2 = new Space();
+        space2.setShip(ship);
+
+        space.logStrike();
+        space2.logStrike();
+
+        assertEquals(State.SUNK, space.getState());
+
+    }
+
+    @Test
+    public void testHitsNotContagious() {
+        Ship ship = new Ship("test", 2);
+        space.setShip(ship);
+
+        Space space2 = new Space();
+        space2.setShip(ship);
+
+        space.logStrike();
+
+        assertEquals(State.SHIP, space2.getState());
     }
 }

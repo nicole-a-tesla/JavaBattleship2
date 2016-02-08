@@ -9,7 +9,14 @@ public class Space {
     }
 
     public State getState() {
+        updateStateIfSunk();
         return state;
+    }
+
+    private void updateStateIfSunk() {
+        if (shipIsSunk()) {
+            state = State.SUNK;
+        }
     }
 
     public State logStrike() {
@@ -23,11 +30,8 @@ public class Space {
     }
 
     private void updateStateAccordingToShipState() {
-        if (shipIsSunk()) {
-            state = State.SUNK;
-        } else {
-            state = State.HIT;
-        }
+        state = State.HIT;
+        updateStateIfSunk();
     }
 
 
