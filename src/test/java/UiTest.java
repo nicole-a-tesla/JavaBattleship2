@@ -19,7 +19,8 @@ public class UiTest {
     private Printer printer;
     private Receiver mockReceiver;
     private BoardFormatter boardFormatter;
-    private Board board;
+    private Board opponentBoard;
+    private Board playerBoard;
     private BoardPrinter boardPrinter;
     private BoardPrintManager boardPrintManager;
     private ByteArrayInputStream inContent = new ByteArrayInputStream("A0".getBytes());
@@ -29,7 +30,8 @@ public class UiTest {
     public void setup() {
         printer = new ConsolePrinter();
         mockReceiver = mock(ConsoleReceiver.class);
-        board = new Board(new Fleet(), 10);
+        opponentBoard = new Board(new Fleet(), 10);
+        playerBoard = new Board(new Fleet(), 10);
         boardPrinter = new BoardPrinter(printer);
         boardFormatter = new BoardFormatter();
         boardPrintManager = new BoardPrintManager(boardFormatter, boardPrinter);
@@ -61,7 +63,7 @@ public class UiTest {
         Ui ui = new Ui(printer, mockReceiver, boardPrintManager);
         when(mockReceiver.getUserInput()).thenReturn("A0");
 
-        Game game = new Game(board, ui);
+        Game game = new Game(opponentBoard, playerBoard, ui);
 
         game.playersTurn();
         verify(mockReceiver).getUserInput();
@@ -73,11 +75,11 @@ public class UiTest {
         BoardFormatter mockBoardFormatter = mock(BoardFormatter.class);
         BoardPrintManager manager = new BoardPrintManager(mockBoardFormatter, boardPrinter);
         Ui ui = new Ui(printer, new ConsoleReceiver(), manager);
-        Game game = new Game(board, ui);
+        Game game = new Game(opponentBoard, playerBoard, ui);
 
         game.playersTurn();
 
-        verify(mockBoardFormatter).format(board);
+        verify(mockBoardFormatter).format(opponentBoard);
 
     }
 

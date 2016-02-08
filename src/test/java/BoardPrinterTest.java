@@ -30,7 +30,7 @@ public class BoardPrinterTest {
         boardPrinter.printBoard(formattedBoard);
 
         String water = " \uD83C\uDF0A ";
-        String expectedOutput = "   0  1\nA " + water + water + "\nB " + water + water + "\n";
+        String expectedOutput = "\n   0  1\nA " + water + water + "\nB " + water + water + "\n";
 
         assertEquals(expectedOutput, outContent.toString());
 

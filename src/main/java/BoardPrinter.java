@@ -10,6 +10,7 @@ public class BoardPrinter {
     }
 
     public void printBoard(ArrayList<String> formattedBoard) {
+        printer.print("\n");
         for (String row: formattedBoard) {
             printRow(row);
         }

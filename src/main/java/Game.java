@@ -1,25 +1,23 @@
 package main.java;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 public class Game {
-    public Board board;
+    public Board opponentBoard;
+    public Board playerBoard;
     public Ui ui;
     public Printer printer = new ConsolePrinter();
     private WelcomeSequence welcomeSequence = new WelcomeSequence(printer);
     public boolean gameIsOver = false;
 
-    public Game(Board board, Ui ui) {
-        this.board = board;
+    public Game(Board opponentBoard, Board playerBoard, Ui ui) {
+        this.opponentBoard = opponentBoard;
+        this.playerBoard = playerBoard;
         this.ui = ui;
     }
 
     public void setupBoard() {
-        board.setAllShipsAtRandom();
+        opponentBoard.setAllShipsAtRandom();
     }
 
     public void startGame() throws IOException, InterruptedException {
@@ -37,7 +35,8 @@ public class Game {
     }
 
     public void playersTurn() throws IOException {
-        ui.printBoard(board);
+        ui.printBoard(playerBoard);
+        ui.printBoard(opponentBoard);
         ui.requestXY();
 
         CoordinateSet targetCoords= getTargetCoords();
@@ -50,9 +49,9 @@ public class Game {
     }
 
     public void checkForGameOver() {
-        if (board.allSunk()) {
+        if (opponentBoard.allSunk()) {
             gameIsOver = true;
-            ui.printBoard(board);
+            ui.printBoard(opponentBoard);
             printer.print("You Win!\n");
         }
     }
@@ -68,11 +67,11 @@ public class Game {
     }
 
     public State strikeBoardAt(int x, int y) {
-        return board.logStrikeAt(x, y);
+        return opponentBoard.logStrikeAt(x, y);
     }
 
     public State setShipAt(Ship ship, int x, int y) {
-        return board.setShipAt(ship, x, y);
+        return opponentBoard.setShipAt(ship, x, y);
     }
 
     private void reportStrikeResults(State state) {
