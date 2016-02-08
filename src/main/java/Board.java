@@ -16,9 +16,7 @@ public class Board {
     }
 
     public void setAllShipsAtRandom() {
-        for (Ship ship: ships) {
-            setShipAtRandom(ship);
-        }
+        ships.forEach(this::setShipAtRandom);
     }
 
     private void setShipAtRandom(Ship ship) {
