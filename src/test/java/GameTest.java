@@ -3,7 +3,9 @@ package test.java;
 import main.java.*;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +19,7 @@ import static org.mockito.Mockito.*;
 
 public class GameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayInputStream inContent = new ByteArrayInputStream("A0".getBytes());
+    private ByteArrayInputStream inContent = new ByteArrayInputStream("A0".getBytes());
     private Game game;
     private Board opponentBoard;
     private Board playerBoard;
@@ -111,6 +113,34 @@ public class GameTest {
         assertEquals("", outContent.toString());
     }
 
+    @Test
+    public void testGetOrientation() throws IOException {
+        inContent = new ByteArrayInputStream("1".getBytes());
+        System.setIn(inContent);
+
+        game.getOrientation();
+    }
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testNonsenseOrientation() throws IOException {
+        inContent = new ByteArrayInputStream("i like hats!!".getBytes());
+        System.setIn(inContent);
+
+        thrown.expect(IllegalArgumentException.class);
+        game.getOrientation();
+    }
+
+    @Test
+    public void testOutOfBoundsOrientation() throws IOException {
+        inContent = new ByteArrayInputStream("19".getBytes());
+        System.setIn(inContent);
+
+        thrown.expect(IllegalArgumentException.class);
+        game.getOrientation();
+    }
 
     @After
     public void cleanupStream() {

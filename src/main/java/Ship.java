@@ -11,6 +11,10 @@ public class Ship {
         this.hitCount = 0;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void logStrike() {
         hitCount++;
     }

@@ -17,12 +17,13 @@ import static org.mockito.Mockito.when;
 
 public class UiTest {
     private Printer printer;
+    private Printer mockPrinter;
     private Receiver mockReceiver;
-    private BoardFormatter boardFormatter;
     private Board opponentBoard;
     private Board playerBoard;
     private BoardPrinter boardPrinter;
     private BoardPrintManager boardPrintManager;
+    private Ui uiWithFakePrinter;
     private ByteArrayInputStream inContent = new ByteArrayInputStream("A0".getBytes());
     private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -33,8 +34,11 @@ public class UiTest {
         opponentBoard = new Board(new Fleet(), 10);
         playerBoard = new Board(new Fleet(), 10);
         boardPrinter = new BoardPrinter(printer);
-        boardFormatter = new BoardFormatter();
+        BoardFormatter boardFormatter = new BoardFormatter();
         boardPrintManager = new BoardPrintManager(boardFormatter, boardPrinter);
+
+        mockPrinter = mock(ConsolePrinter.class);
+        uiWithFakePrinter = new Ui(mockPrinter, new ConsoleReceiver(), boardPrintManager);
 
         System.setIn(inContent);
         System.setOut(new PrintStream(outContent));
@@ -42,12 +46,8 @@ public class UiTest {
 
     @Test
     public void printsToPrinter() {
-        Printer mockPrinter = mock(ConsolePrinter.class);
-        Receiver receiver = new ConsoleReceiver();
-        BoardPrintManager manager = new BoardPrintManager(new BoardFormatter(), boardPrinter);
-        Ui ui = new Ui(mockPrinter, receiver, manager);
         String test = "A0";
-        ui.print(test);
+        uiWithFakePrinter.print(test);
         verify(mockPrinter).print(test);
     }
 
@@ -85,10 +85,21 @@ public class UiTest {
 
     @Test
     public void testInvalidInputMessage() {
-        Printer mockPrinter = mock(ConsolePrinter.class);
-        Ui ui = new Ui(mockPrinter, new ConsoleReceiver(), boardPrintManager);
-        ui.invalidInputMessage();
+        uiWithFakePrinter.invalidInputMessage();
         verify(mockPrinter).print("Invalid Input, please try again.\n");
+    }
+
+    @Test
+    public void testShipPlacementPrompt() {
+        Ship battleShip = new Ship("battleship", 4);
+        uiWithFakePrinter.promptShipPlacement(battleShip);
+        verify(mockPrinter).print("Enter coordinates for your 4 square long battleship ");
+    }
+
+    @Test
+    public void testOrientationPrompt() {
+        uiWithFakePrinter.promptForOrientation();
+        verify(mockPrinter).print("Should that be vertical (0), or horizontal (1) ? ");
     }
 
 

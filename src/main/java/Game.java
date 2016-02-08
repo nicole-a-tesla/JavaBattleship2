@@ -1,6 +1,8 @@
 package main.java;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 public class Game {
     public Board opponentBoard;
@@ -16,16 +18,62 @@ public class Game {
         this.ui = ui;
     }
 
-    public void setupBoard() {
+    public void setupOpponentBoard() {
         opponentBoard.setAllShipsAtRandom();
     }
 
-    public void startGame() throws IOException, InterruptedException {
+    public void startGame() throws IOException, InterruptedException, IllegalArgumentException {
         welcomeSequence();
-        setupBoard();
+        setupOpponentBoard();
+        setupPlayerBoard();
 
         while (!gameIsOver) {
             playersTurn();
+        }
+    }
+
+    public void setupPlayerBoard() throws IOException, IllegalArgumentException {
+        List<Ship> ships = playerBoard.getShips();
+
+        for (Ship ship: ships) {
+            ui.printBoard(playerBoard);
+            setupShip(ship);
+        }
+    }
+
+    private void setupShip(Ship ship) throws IOException, IllegalArgumentException {
+        ui.promptShipPlacement(ship);
+        CoordinateSet coords = getTargetCoords();
+        String orientation = getOrientation();
+
+        ShipSetArgs args = new ShipSetArgs(ship, coords.getXValue(), coords.getYValue(), orientation);
+
+        if (!playerBoard.attemptSet(args, 0)) {
+            ui.invalidInputMessage();
+            setupShip(ship);
+        }
+
+    }
+
+    public String getOrientation() throws IOException, IllegalArgumentException {
+        ui.promptForOrientation();
+        String userInput = ui.getUserInput();
+        validateOrientationChoice(userInput);
+
+        String[] options = {"vertical", "horizontal"};
+
+        try {
+            return options[Integer.parseInt(userInput)];
+        } catch (NullPointerException e) {
+            ui.invalidInputMessage();
+            return getOrientation();
+        }
+
+    }
+
+    private void validateOrientationChoice(String choice) throws IllegalArgumentException {
+        if (!Objects.equals(choice, "0") && !Objects.equals(choice, "1")) {
+            throw new IllegalArgumentException();
         }
     }
 
