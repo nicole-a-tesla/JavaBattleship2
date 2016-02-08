@@ -1,13 +1,11 @@
 package test.java;
 
-import main.java.Board;
-import main.java.Ship;
-import main.java.Space;
-import main.java.State;
+import main.java.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,12 +13,12 @@ import static org.junit.Assert.assertTrue;
 
 
 public class BoardTest {
-    Board b = new Board(10);
+    Board b = new Board(new Fleet(), 10);
 
     @Test
     public void hasSize() {
         assertEquals(10, b.size);
-        b = new Board(7);
+        b = new Board(new Fleet(), 7);
         assertEquals(7, b.size);
     }
 
@@ -56,20 +54,20 @@ public class BoardTest {
 
     @Test
     public void reportsShipWasSunk() {
-        b.setShipAt(new Ship(1), 0,0);
+        b.setShipAt(new Ship("test", 1), 0,0);
         b.logStrikeAt(0,0);
         assertEquals(State.SUNK, b.getStateAt(0,0));
     }
 
     @Test
     public void canSetShipAtCoords() {
-        State state = b.setShipAt(new Ship(1), 0,0);
+        State state = b.setShipAt(new Ship("test", 1), 0,0);
         assertEquals(State.SHIP, state);
     }
 
     @Test
     public void hasFiveShips() {
-        assertEquals(5, b.getShips().length);
+        assertEquals(5, b.getShips().size());
     }
 
     @Test
@@ -77,28 +75,19 @@ public class BoardTest {
         assertFalse(b.allSunk());
     }
 
+
     @Test
     public void reportsAllShipsAreSunk() {
-        Ship[] ships = b.getShips();
-
-        for (int i=0; i<ships.length; i++) {
-            b.setShipAt(ships[i], i, i);
-            b.logStrikeAt(i, i);
-        }
+        List<Ship> ships = b.getShips();
+        Helpers.sinkThisManyShips(ships, 5);
 
         assertTrue(b.allSunk());
     }
 
     @Test
     public void reportsNotAllSunkIfOnlySomeSunk() {
-        Ship[] ships = b.getShips();
-
-        for (int i=0; i<ships.length; i++) {
-            b.setShipAt(ships[i], i, i);
-        }
-
-        b.logStrikeAt(0,0);
-        b.logStrikeAt(4,4);
+        List<Ship> ships = b.getShips();
+        Helpers.sinkThisManyShips(ships, 4);
 
         assertFalse(b.allSunk());
     }
@@ -106,15 +95,17 @@ public class BoardTest {
     @Test
     public void testBoardSetup() {
         b.setAllShipsAtRandom();
-        int numOfShipsSet = 0;
+        int numOfSpacesWithShips = 0;
 
         for (int x=0; x<10; x++) {
             for (int y=0; y<10; y++) {
                 if (b.getStateAt(x,y) == State.SHIP) {
-                    numOfShipsSet++;
+                    numOfSpacesWithShips++;
                 }
             }
         }
-        Assert.assertEquals(5, numOfShipsSet);
+        Assert.assertEquals(17, numOfSpacesWithShips);
     }
+
 }
+

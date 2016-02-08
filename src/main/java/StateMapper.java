@@ -10,7 +10,9 @@ public class StateMapper {
     public static final HashMap<State, String> dictionary = new HashMap<State, String>() {
         {
             put(State.WATER, " \uD83C\uDF0A ");
-            put(State.SHIP, " \uD83C\uDF0A️ "); // same as water for now
+//            put(State.SHIP, " \uD83C\uDF0A️ "); // same as water for now
+            put(State.SHIP, " ⛵️ ");
+
             put(State.MISS, " \uD83D\uDCA8 ");
             put(State.HIT, " \uD83D\uDCA5 ");
             put(State.SUNK, " ♨️ ");

@@ -2,7 +2,9 @@ package test.java;
 
 import main.java.Board;
 import main.java.BoardFormatter;
+import main.java.Fleet;
 import main.java.Ship;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,6 +13,13 @@ import static junit.framework.Assert.assertEquals;
 
     public class BoardFormatterTest {
         private BoardFormatter formatter = new BoardFormatter();
+        private Fleet fleet;
+
+        @Before
+        public void setup() {
+            fleet = new Fleet();
+        }
+
 
         @Test
         public void test2x2BoardPrint() {
@@ -19,7 +28,7 @@ import static junit.framework.Assert.assertEquals;
             String water = " \uD83C\uDF0A ";
             expected.add("A " + water + water + "\n");
             expected.add( "B " + water + water + "\n");
-            Board board = new Board(2);
+            Board board = new Board(fleet, 2);
             ArrayList formatted = formatter.format(board);
 
             assertEquals(expected.get(0), formatted.get(0));
@@ -29,7 +38,7 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void testMissFormatting() {
-            Board board = new Board(1);
+            Board board = new Board(fleet, 1);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
             String miss = " \uD83D\uDCA8 ";
@@ -40,8 +49,8 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void testHitFormatting() {
-            Board board = new Board(1);
-            board.setShipAt(new Ship(2), 0,0);
+            Board board = new Board(fleet, 1);
+            board.setShipAt(new Ship("test", 2), 0,0);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
             String hit = " \uD83D\uDCA5 ";
@@ -52,8 +61,8 @@ import static junit.framework.Assert.assertEquals;
 
         @Test
         public void testSunkFormatting() {
-            Board board = new Board(1);
-            board.setShipAt(new Ship(1), 0,0);
+            Board board = new Board(fleet, 1);
+            board.setShipAt(new Ship("test", 1), 0,0);
             board.logStrikeAt(0,0);
             ArrayList<String> formatted = formatter.format(board);
             String sunk = " ♨️ ";

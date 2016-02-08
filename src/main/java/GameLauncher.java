@@ -8,7 +8,7 @@ public class GameLauncher {
         Printer consolePrinter = new ConsolePrinter();
         BoardPrintManager manager = new BoardPrintManager(new BoardFormatter(), new BoardPrinter(consolePrinter));
         Ui ui = new Ui(consolePrinter, new ConsoleReceiver(), manager);
-        Game game = new Game(new Board(10), ui);
+        Game game = new Game(new Board(new Fleet(), 10), ui);
 
         game.startGame();
 

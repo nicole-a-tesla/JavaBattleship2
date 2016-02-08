@@ -1,37 +1,58 @@
 package main.java;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Board {
     public int size;
     private ArrayList grid;
-    private Ship[] ships = new Ship[5];
+    private List<Ship> ships;
 
-    public Board(int size) {
+    public Board(Fleet fleet, int size) {
         this.size = size;
         this.grid = buildGrid();
-        this.ships = buildFleet();
+        this.ships = fleet.getShips();
     }
 
     public void setAllShipsAtRandom() {
-        for (Ship ship: ships) {
-            setShipAtRandom(ship);
-        }
+        ships.forEach(this::setShipAtRandom);
     }
 
     private void setShipAtRandom(Ship ship) {
         int randX = new Random().nextInt(9);
         int randY = new Random().nextInt(9);
 
-        if (getStateAt(randX, randY) == State.WATER) {
-            setShipAt(ship, randX, randY);
-        } else {
+        if (!attemptSet(ship, randX, randY, 0)) {
             setShipAtRandom(ship);
         }
     }
 
-    public Ship[] getShips() {
+    private boolean attemptSet(Ship ship, int x, int y, int depth) {
+        if (ship.getSize() == depth) {
+            return true;
+        }
+
+        if (positionIsOnBoard(x, y) && spaceIsEmpty(x, y)) {
+                depth++;
+                if (attemptSet(ship, x + 1, y, depth)) {
+                    setShipAt(ship, x, y);
+                    return true;
+                }
+        }
+
+        return false;
+    }
+
+    private boolean positionIsOnBoard(int x, int y) {
+        return x < 10 && y < 10;
+    }
+
+    private boolean spaceIsEmpty(int x, int y) {
+        return getStateAt(x, y) == State.WATER;
+    }
+
+    public List<Ship> getShips() {
         return ships;
     }
 
@@ -91,11 +112,5 @@ public class Board {
         return row;
     }
 
-    private Ship[] buildFleet() {
-        for (int i=0; i<5; i++) {
-            ships[i] = new Ship(1);
-        }
-        return ships;
-    }
 
 }

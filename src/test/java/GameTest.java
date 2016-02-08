@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +27,7 @@ public class GameTest {
         System.setOut(new PrintStream(outContent));
         System.setIn(inContent);
 
-        board = new Board(10);
+        board = new Board(new Fleet(), 10);
 
         Printer consolePrinter = new ConsolePrinter();
         BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
@@ -46,7 +47,7 @@ public class GameTest {
 
     @Test
     public void testGameSetsShipAndReturnsState() {
-        State resultingState = game.setShipAt(new Ship(1), 0,0);
+        State resultingState = game.setShipAt(new Ship("test", 1), 0,0);
         assertEquals(State.SHIP, resultingState);
     }
 
@@ -75,19 +76,10 @@ public class GameTest {
         assertEquals(0, coords.getYValue());
     }
 
-
-    public void setAndStrikeShips(Game game, Board board, int numOfShips) {
-        Ship[] ships = board.getShips();
-
-        for (int i=0; i<numOfShips; i++) {
-            board.setShipAt(ships[i], i, i);
-            game.strikeBoardAt(i,i);
-        }
-    }
-
     @Test
     public void testGameOver() {
-        setAndStrikeShips(game, board, 5);
+        List<Ship> ships = board.getShips();
+        Helpers.sinkThisManyShips(ships, 5);
 
         game.checkForGameOver();
         assertTrue(game.gameIsOver);
@@ -96,8 +88,11 @@ public class GameTest {
 
     @Test
     public void testGameOverMessage() throws IOException {
-        setAndStrikeShips(game, board, 5);
+        List<Ship> ships = board.getShips();
+        Helpers.sinkThisManyShips(ships, 5);
+
         game.checkForGameOver();
+
         String[] outputArray = outContent.toString().split("\n");
         String lastMessage = outputArray[outputArray.length - 1];
 
@@ -107,7 +102,9 @@ public class GameTest {
 
     @Test
     public void testGameOverMessageSelectivity() {
-        setAndStrikeShips(game, board, 4);
+        List<Ship> ships = board.getShips();
+        Helpers.sinkThisManyShips(ships, 4);
+
         game.checkForGameOver();
         assertEquals("", outContent.toString());
     }

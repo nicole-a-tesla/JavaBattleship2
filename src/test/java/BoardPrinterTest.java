@@ -1,9 +1,6 @@
 package test.java;
 
-import main.java.Board;
-import main.java.BoardFormatter;
-import main.java.BoardPrinter;
-import main.java.ConsolePrinter;
+import main.java.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +24,7 @@ public class BoardPrinterTest {
         ConsolePrinter consolePrinter = new ConsolePrinter();
         BoardPrinter boardPrinter = new BoardPrinter(consolePrinter);
         BoardFormatter boardFormatter = new BoardFormatter();
-        Board board = new Board(2);
+        Board board = new Board(new Fleet(), 2);
 
         ArrayList<String> formattedBoard = boardFormatter.format(board);
         boardPrinter.printBoard(formattedBoard);
