@@ -1,6 +1,5 @@
 package test.java;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import main.java.*;
 import org.junit.After;
 import org.junit.Before;
@@ -115,7 +114,7 @@ public class GameTest {
     }
 
     @Test
-    public void testGetOrientation() throws IOException, InvalidArgumentException {
+    public void testGetOrientation() throws IOException {
         inContent = new ByteArrayInputStream("1".getBytes());
         System.setIn(inContent);
 
@@ -126,7 +125,7 @@ public class GameTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testNonsenseOrientation() throws IOException, InvalidArgumentException {
+    public void testNonsenseOrientation() throws IOException {
         inContent = new ByteArrayInputStream("i like hats!!".getBytes());
         System.setIn(inContent);
 
@@ -135,7 +134,7 @@ public class GameTest {
     }
 
     @Test
-    public void testOutOfBoundsOrientation() throws IOException, InvalidArgumentException {
+    public void testOutOfBoundsOrientation() throws IOException {
         inContent = new ByteArrayInputStream("19".getBytes());
         System.setIn(inContent);
 
