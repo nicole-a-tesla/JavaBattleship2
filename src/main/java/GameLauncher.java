@@ -9,7 +9,7 @@ public class GameLauncher {
         BoardPrintManager manager = new BoardPrintManager(new BoardFormatter(), new BoardPrinter(consolePrinter));
         Ui ui = new Ui(consolePrinter, new ConsoleReceiver(), manager);
 
-        Board opponentBoard = new Board(new Fleet(), 10);
+        Board opponentBoard = new OpponentBoard(new Fleet(), 10);
         Board playerBoard = new Board(new Fleet(), 10);
 
         Game game = new Game(opponentBoard, playerBoard, ui);

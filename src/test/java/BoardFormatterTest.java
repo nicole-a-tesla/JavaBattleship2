@@ -1,9 +1,6 @@
 package test.java;
 
-import main.java.Board;
-import main.java.BoardFormatter;
-import main.java.Fleet;
-import main.java.Ship;
+import main.java.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -71,5 +68,16 @@ import static junit.framework.Assert.assertEquals;
             assertEquals(expectedRow, formatted.get(1));
         }
 
+        @Test
+        public void testOpponentShipHidden() {
+            String water = StateMapper.mapState(State.WATER);
+            Board opponentBoard = new OpponentBoard(fleet, 1);
+            opponentBoard.setShipAt(new Ship("Lady Shipette of Shipalonia", 1), 0,0);
+
+
+            ArrayList formatted = formatter.format(opponentBoard);
+            String expected =  "A " + water + "\n";
+            assertEquals(expected, formatted.get(1));
+        }
 
     }

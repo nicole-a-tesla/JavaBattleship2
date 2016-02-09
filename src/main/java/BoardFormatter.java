@@ -9,6 +9,7 @@ public class BoardFormatter {
 
     public ArrayList<String> format(Board board) {
         this.board = board;
+
         ArrayList<String> formatted = new ArrayList<>();
 
         StringBuffer xAxis = getXAxis(board.size);
@@ -31,13 +32,21 @@ public class BoardFormatter {
 
         for (Space space: row) {
             State state = space.getState();
-            String spaceRepresentation = new StateMapper().mapState(state);
+            String spaceRepresentation = getSpaceRepresentation(state);
             rowIncubator.append(spaceRepresentation);
         }
 
         rowIncubator.append("\n");
 
         return rowIncubator;
+    }
+
+    private String getSpaceRepresentation(State state) {
+        if (board.getClass() == OpponentBoard.class && state == State.SHIP) {
+            return StateMapper.mapState(State.WATER);
+        } else {
+            return StateMapper.mapState(state);
+        }
     }
 
     private String y_axis_num(int axis_number) {
