@@ -3,6 +3,7 @@ package main.java;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class Game {
     public Board opponentBoard;
@@ -82,9 +83,14 @@ public class Game {
         printer.clearScreen();
     }
 
-    public void playersTurn() throws IOException {
+    private void printBothBoards() {
         ui.printBoard(playerBoard);
         ui.printBoard(opponentBoard);
+    }
+
+    public void playersTurn() throws IOException {
+        printBothBoards();
+        computersTurn(playerBoard);
         ui.requestXY();
 
         CoordinateSet targetCoords= getTargetCoords();
@@ -96,11 +102,26 @@ public class Game {
         checkForGameOver();
     }
 
+    public void computersTurn(Board playerBoard) {
+        int boundary = playerBoard.getSize();
+        int randX = new Random().nextInt(boundary);
+        int randY = new Random().nextInt(boundary);
+
+        playerBoard.logStrikeAt(randX, randY);
+    }
+
     public void checkForGameOver() {
-        if (opponentBoard.allSunk()) {
+        if (opponentBoard.allSunk() || playerBoard.allSunk()) {
             gameIsOver = true;
-            ui.printBoard(opponentBoard);
+            printBothBoards();
+        }
+
+        if (opponentBoard.allSunk()) {
             printer.print("You Win!\n");
+        }
+
+        if (playerBoard.allSunk()) {
+            printer.print("You Lose!\n");
         }
     }
 

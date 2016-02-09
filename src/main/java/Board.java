@@ -15,6 +15,10 @@ public class Board {
         this.ships = fleet.getShips();
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public void setAllShipsAtRandom() {
         ships.forEach(this::setShipAtRandom);
     }
