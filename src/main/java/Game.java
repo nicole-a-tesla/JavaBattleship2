@@ -3,6 +3,7 @@ package main.java;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class Game {
     public Board opponentBoard;
@@ -85,6 +86,7 @@ public class Game {
     public void playersTurn() throws IOException {
         ui.printBoard(playerBoard);
         ui.printBoard(opponentBoard);
+        computersTurn(playerBoard);
         ui.requestXY();
 
         CoordinateSet targetCoords= getTargetCoords();
@@ -94,6 +96,14 @@ public class Game {
         State strikeResult = strikeBoardAt(x, y);
         reportStrikeResults(strikeResult);
         checkForGameOver();
+    }
+
+    public void computersTurn(Board playerBoard) {
+        int boundary = playerBoard.getSize();
+        int randX = new Random().nextInt(boundary);
+        int randY = new Random().nextInt(boundary);
+
+        playerBoard.logStrikeAt(randX, randY);
     }
 
     public void checkForGameOver() {

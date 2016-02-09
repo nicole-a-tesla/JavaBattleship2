@@ -142,6 +142,28 @@ public class GameTest {
         game.getOrientation();
     }
 
+    @Test
+    public void testComputerTurn(){
+        Board board = new Board(new Fleet(), 1);
+        game.computersTurn(board);
+        assertEquals(State.MISS, board.getStateAt(0,0));
+    }
+
+    @Test
+    public void testComputerTurnOnLargerBoard() {
+        Board board = new Board(new Fleet(), 2);
+
+        for (int i=0; i<50; i++) {
+            game.computersTurn(board);
+        }
+
+        assertEquals(State.MISS, board.getStateAt(0,0));
+        assertEquals(State.MISS, board.getStateAt(0,1));
+        assertEquals(State.MISS, board.getStateAt(1,0));
+        assertEquals(State.MISS, board.getStateAt(1,1));
+
+    }
+
     @After
     public void cleanupStream() {
         System.setOut(null);
