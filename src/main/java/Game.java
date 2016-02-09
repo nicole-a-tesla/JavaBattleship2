@@ -83,9 +83,13 @@ public class Game {
         printer.clearScreen();
     }
 
-    public void playersTurn() throws IOException {
+    private void printBothBoards() {
         ui.printBoard(playerBoard);
         ui.printBoard(opponentBoard);
+    }
+
+    public void playersTurn() throws IOException {
+        printBothBoards();
         computersTurn(playerBoard);
         ui.requestXY();
 
@@ -107,10 +111,17 @@ public class Game {
     }
 
     public void checkForGameOver() {
-        if (opponentBoard.allSunk()) {
+        if (opponentBoard.allSunk() || playerBoard.allSunk()) {
             gameIsOver = true;
-            ui.printBoard(opponentBoard);
+            printBothBoards();
+        }
+
+        if (opponentBoard.allSunk()) {
             printer.print("You Win!\n");
+        }
+
+        if (playerBoard.allSunk()) {
+            printer.print("You Lose!\n");
         }
     }
 

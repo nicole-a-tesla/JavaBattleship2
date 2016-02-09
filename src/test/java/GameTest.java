@@ -11,6 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -23,6 +24,7 @@ public class GameTest {
     private Game game;
     private Board opponentBoard;
     private Board playerBoard;
+    private Ui ui;
 
     @Before
     public void setup() {
@@ -38,7 +40,7 @@ public class GameTest {
         BoardFormatter boardFormatter = new BoardFormatter();
         BoardPrintManager manager = new BoardPrintManager(boardFormatter, boardPrinter);
 
-        Ui ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), manager);
+        ui = new Ui(new ConsolePrinter(), new ConsoleReceiver(), manager);
         game = new Game(opponentBoard, playerBoard, ui);
 
     }
@@ -161,6 +163,29 @@ public class GameTest {
         assertEquals(State.MISS, board.getStateAt(0,1));
         assertEquals(State.MISS, board.getStateAt(1,0));
         assertEquals(State.MISS, board.getStateAt(1,1));
+
+    }
+
+    @Test
+    public void testComputerCanWin() {
+        Ship ship = new Ship("Sir Shipsalot", 1);
+        List<Ship> ships = new ArrayList<>();
+        ships.add(ship);
+
+        Fleet mockFleet = mock(Fleet.class);
+        when(mockFleet.getShips()).thenReturn(ships);
+
+        Board board = new Board(mockFleet, 1);
+        board.setShipAt(ship, 0,0);
+
+        Game g = new Game(new Board(new Fleet(), 1), board, ui);
+        g.computersTurn(board);
+
+        g.checkForGameOver();
+        assertTrue(g.gameIsOver);
+
+        String[] printed = outContent.toString().split("\n");
+        assertEquals("You Lose!", printed[printed.length - 1]);
 
     }
 
