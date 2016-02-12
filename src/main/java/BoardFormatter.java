@@ -12,7 +12,7 @@ public class BoardFormatter {
 
         ArrayList<String> formatted = new ArrayList<>();
 
-        StringBuffer xAxis = getXAxis(board.size);
+        StringBuffer xAxis = getXAxis(board.getSize());
         formatted.add(String.valueOf(xAxis));
 
         int rowCount = 0;

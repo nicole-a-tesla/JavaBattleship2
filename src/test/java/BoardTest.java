@@ -18,9 +18,9 @@ public class BoardTest {
 
     @Test
     public void hasSize() {
-        assertEquals(10, b.size);
+        assertEquals(10, b.getSize());
         b = new Board(new Fleet(), 7);
-        assertEquals(7, b.size);
+        assertEquals(7, b.getSize());
     }
 
     @Test
