@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Board {
-    public int size;
+    private int size;
     private ArrayList grid;
     private List<Ship> ships;
 
